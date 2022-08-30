@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Lato', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+  }
+  
+:root {
+    font-family: 'Lato', sans-serif;
+    max-width: 1280px;
+   
+  }
+
+  *, *:before, *:after 
+{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+a
+{
+    outline: none;
+    text-decoration: none;
+    
+    cursor: pointer;
+}
