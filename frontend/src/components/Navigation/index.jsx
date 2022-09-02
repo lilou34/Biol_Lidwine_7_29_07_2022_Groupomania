@@ -4,11 +4,9 @@ const Navigation = () => {
     return (
         <div className='navigation'>
             <ul>
-                <NavLink to='/'>
-                    <li>Connexion</li>
-                </NavLink>
-                <NavLink to='/Signup'>
-                    <li>Créer Compte</li>
+                
+            <NavLink to='/'>
+                    <li>Accueil</li>
                 </NavLink>
                 <NavLink to='/Newsfeed'>
                     <li>Newsfeed</li>
@@ -25,3 +23,11 @@ const Navigation = () => {
 };
 
 export default Navigation;
+/*
+<NavLink to='/Login'>
+    <li>Connexion</li>
+</NavLink>
+<NavLink to='/Signup'>
+    <li>Créer Compte</li>
+</NavLink>
+*/

@@ -3,7 +3,8 @@ import React from 'react';
 import ReactDOM from "react-dom/client";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './pages/Home/Index';
+import Index from './pages/Index/Index';
+import Login from './pages/Login/Index';
 import Signup from './pages/Signup/Index';
 import Profil from './pages/Profil/Index';
 import Users from './pages/Users/Index';
@@ -15,12 +16,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/users" element={<Users />} />
           <Route path="/newsfeed" element={<Newsfeed />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<Index />} />
           
         </Routes>
       </BrowserRouter>

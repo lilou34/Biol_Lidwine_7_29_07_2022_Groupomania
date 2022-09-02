@@ -1,2 +1,22 @@
 
 
+.container-login{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 1440px;
+    
+    & .img-login{
+        object-fit: cover;
+        
+        width: 50%;
+    }
+    & .box{
+        object-fit: cover;
+        width: 50%;
+        align-items: center;
+        text-align: center;
+    }
+
+}
