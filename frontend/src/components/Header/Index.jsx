@@ -1,9 +1,11 @@
 import React from 'react';
-
-function Header() {
+import Navigation from '../../components/Navigation';
+import logo from "./icon-left-font_preview_rev_1.png";
+const Header = () => {
     return (
         <div>
-            
+            <img src={logo} className= "logo" />     
+      <Navigation />
         </div>
     );
 }

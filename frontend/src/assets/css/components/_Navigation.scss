@@ -1,9 +1,15 @@
-.navigation{
+.navigation ul{
+    margin-top: 20px;
     font-style: italic;
     font-weight: 700;
     font-size: 26px;
-    color: $primary;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
-a{
-    color: $primary;
+a li{
+    color: $tertiairy;
+    text-decoration: underline;
+    list-style-type : none;
 }

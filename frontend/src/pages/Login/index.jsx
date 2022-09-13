@@ -1,26 +1,49 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-
-import Navigation from '../../components/Navigation';
+import { NavLink } from 'react-router-dom';
 
 
 import image from './homme_tour_controle.jpg';
 import logo from "./icon-left-font_preview_rev_1.png";
 
-const Home = () => {
+
+
+const Login = () => {
     return (
-      <main className='container-login'>
+      <div className="container-login">
+          
           <img src={image} alt= "Homme debout dans une tour de controle vide" className='img-login' />
-          <Box className= 'box'>
+          <div className= 'box'>
             <img src={logo} className= "logo" />
-            <h1>login</h1>
-            <Navigation />
-          </Box>
-      </main>
+            
+            <form id="form-login" method="post" action="#">
+            <h1>Connexion</h1>
+            <div className="form-group">
+									<label htmlFor="email">
+										Adresse email
+									</label>
+									<input  className="name form-control" type="email" placeholder="example: dupont@gmail.com" required autoFocus/>
+									
+								</div>
+                <div className="form-group">
+									<label htmlFor="password">
+										Mot de passe
+									</label>
+									<input className="password form-control" type="text" placeholder="*********" required autoFocus/>
+								</div>
+                <button className="button" type="submit">
+                <NavLink to="/">
+									Connexion
+                  </NavLink>
+								</button>
+                
+            </form>
+            <p><NavLink to="/Signup" className='lien-signup'> Créer un compte</NavLink></p>
+          </div>
+      </div>
     )
 };
 
-export default Home;
+export default Login;
 
 
 ///Users/lidou/Biol_Lidwine_7_29_07_2022/frontend/src/assets/img/homme_tour_controle.jpg

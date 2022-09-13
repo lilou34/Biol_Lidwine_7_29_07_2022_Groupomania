@@ -1,4 +1,11 @@
 $primary: #FD2D01;
 $secondary: #FFD7D7;
-$tertiaire: #4E5166;
+$tertiairy: #4E5166;
+
+//media queries
+$breakpoints: 
+(
+  tablette: 688px,
+  desktop: 992px
+);
 

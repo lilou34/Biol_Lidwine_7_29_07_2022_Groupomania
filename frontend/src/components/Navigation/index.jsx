@@ -4,17 +4,16 @@ const Navigation = () => {
     return (
         <div className='navigation'>
             <ul>
-                
-            <NavLink to='/'>
+                <NavLink to='/' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Accueil</li>
                 </NavLink>
-                <NavLink to='/Newsfeed'>
+                <NavLink to='/Newsfeed' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Newsfeed</li>
                 </NavLink>
-                <NavLink to='/Profil'>
+                <NavLink to='/Profil' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Mon Profil</li>
                 </NavLink>
-                <NavLink to='/Users'>
+                <NavLink to='/Users' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Utilisateurs</li>
                 </NavLink>
             </ul>
