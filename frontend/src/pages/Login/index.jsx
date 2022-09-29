@@ -1,165 +1,62 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import Logo from "../../components/Logo";
 
-
-import image from './homme_tour_controle.jpg';
-import logo from "./icon-left-font_preview_rev_1.png";
-
-
+import image from "./homme_tour_controle.jpg";
 
 const Login = () => {
-    return (
-      <div className="container-login">
-          
-          <img src={image} alt= "Homme debout dans une tour de controle vide" className='img-login' />
-          <div className= 'box'>
-            <img src={logo} className= "logo" />
-            
-            <form id="form-login" method="post" action="#">
-            <h1>Connexion</h1>
-            <div className="form-group">
-									<label htmlFor="email">
-										Adresse email
-									</label>
-									<input  className="name form-control" type="email" placeholder="example: dupont@gmail.com" required autoFocus/>
-									
-								</div>
-                <div className="form-group">
-									<label htmlFor="password">
-										Mot de passe
-									</label>
-									<input className="password form-control" type="text" placeholder="*********" required autoFocus/>
-								</div>
-                <button className="button" type="submit">
-                <NavLink to="/">
-									Connexion
-                  </NavLink>
-								</button>
-                
-            </form>
-            <p><NavLink to="/Signup" className='lien-signup'> Créer un compte</NavLink></p>
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  return (
+    <div className="container-login">
+      <img
+        src={image}
+        alt="Homme debout dans une tour de controle vide"
+        className="img-login"
+      />
+      <div className="box-login">
+        <Logo className="logo" />
+        <form id="form-login" method="post" action="#">
+          <h1>Bienvenue sur votre réseau social d'entreprise</h1>
+          <p>Connectez-vous</p>
+          <div className="form-group">
+            <label htmlFor="email">Adresse email</label>
+            <input
+              className="name form-control"
+              type="email"
+              placeholder="exemple: dupont@gmail.com"
+              required
+              autoFocus
+            />
           </div>
+          <div className="form-group">
+            <label htmlFor="password">Mot de passe</label>
+            <input
+              className="password form-control"
+              id="password"
+              type="text"
+              placeholder="exemple: Motdepasse01"
+              required
+            />
+            <button id="btnEye">
+              <i className="fas fa-eye" id="eye"></i>
+            </button>
+          </div>
+          <button className="btn" type="submit">
+            <NavLink to="/" className="texte">
+              Connexion
+            </NavLink>
+          </button>
+        </form>
+        <p>
+          <NavLink to="/Signup" className="lien-signup">
+            Pas de compte ? Cliquez ici pour créer un compte
+          </NavLink>
+        </p>
       </div>
-    )
+    </div>
+  );
 };
 
 export default Login;
-
-
-///Users/lidou/Biol_Lidwine_7_29_07_2022/frontend/src/assets/img/homme_tour_controle.jpg
-//<CssBaseline />
-//import { createTheme, ThemeProvider } from '@mui/material/styles';
-//<h1>Home</h1>
-//<Navigation /> 
-/*function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
-
-export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </ThemeProvider>
-  );
-}*/

@@ -1,15 +1,11 @@
 /*média queries, beakpoint*/
-@mixin tab 
-{
-    @media screen and (min-width: map-get($breakpoints, tablette))
-    {
-        @content;
-    }
+@mixin tab {
+  @media screen and (min-width: map-get($breakpoints, tablette)) {
+    @content;
+  }
 }
-@mixin desk
-{
-    @media screen and (min-width: map-get($breakpoints, desktop))
-    {
-        @content;
-    }
+@mixin desk {
+  @media screen and (min-width: map-get($breakpoints, desktop)) {
+    @content;
+  }
 }

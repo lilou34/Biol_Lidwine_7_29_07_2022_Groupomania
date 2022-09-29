@@ -1,6 +1,7 @@
 import React from 'react';
 //import Header from '../../components/Header';
 import styled from 'styled-components'
+import Header from '../../components/Header';
 
 const Profil = () => {
     const Title = styled.h1`
@@ -16,9 +17,11 @@ const Wrapper = styled.section`
 `;
     return (
         <Wrapper>
+        <Header />
     <Title>
-      Hello World!
+      Mon Profil
     </Title>
+    
   </Wrapper>
     );
 };

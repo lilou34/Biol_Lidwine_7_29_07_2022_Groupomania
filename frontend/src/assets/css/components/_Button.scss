@@ -1,0 +1,23 @@
+.btn {
+  background-color: $secondary;
+  cursor: pointer;
+  line-height: 2.5;
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+
+  border: 3px solid $tertiairy;
+  border-radius: 15px;
+  font-weight: 900;
+  & .texte {
+    color: $tertiairy;
+  }
+  &:hover {
+    background-color: $tertiairy;
+    border: 3px solid $secondary;
+
+    & .texte {
+      color: white;
+    }
+  }
+}

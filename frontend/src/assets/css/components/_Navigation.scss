@@ -1,15 +1,27 @@
-.navigation ul{
-    margin-top: 20px;
-    font-style: italic;
-    font-weight: 700;
-    font-size: 26px;
-    text-decoration: none;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+.navigation ul {
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 2vh;
+ 
 }
-a li{
+a {
+  
+  margin-left: 10px;
+  @include tab {
+    width: 20%;
+  }
+  li {
     color: $tertiairy;
     text-decoration: underline;
-    list-style-type : none;
+    list-style-type: none;
+    white-space: nowrap;
+  }
 }

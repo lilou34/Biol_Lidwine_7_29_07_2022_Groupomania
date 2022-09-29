@@ -5,16 +5,17 @@ const Navigation = () => {
         <div className='navigation'>
             <ul>
                 <NavLink to='/' className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                    <li>Accueil</li>
+                    <li>Fil d'actualité</li>
                 </NavLink>
-                <NavLink to='/Newsfeed' className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                    <li>Newsfeed</li>
-                </NavLink>
+                
                 <NavLink to='/Profil' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Mon Profil</li>
                 </NavLink>
                 <NavLink to='/Users' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Utilisateurs</li>
+                </NavLink>
+                <NavLink to='/Users' className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                    <li>Déconnexion</li>
                 </NavLink>
             </ul>
         </div>
