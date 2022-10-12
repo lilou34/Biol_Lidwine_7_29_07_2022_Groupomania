@@ -4,12 +4,18 @@
   flex-wrap: nowrap;
   width: 100%;
   height: 100%;
-  min-height: 100vh;
-  justify-content: flex-end;
+  min-height: 99.5vh;
+  margin: auto;
+  
   @include tab {
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: stretch;
+    .imageLogin{
+    width: 50%;
+    }
   }
+
   .img-login {
     object-fit: cover;
     width: 100%;
@@ -17,20 +23,32 @@
     height: 300px;
     @include tab {
       height: 100%;
-      width: 50%;
-      min-height: 100vh;
+      margin-top: 0;
+      min-height: 90vh;
     }
   }
   .box-login {
-    object-fit: cover;
-    width: 100%;
+    margin-block: auto;
+    margin-inline: auto;
+    width: 48%;
     height: 50%;
     align-items: center;
     text-align: center;
     @include tab {
       height: 100%;
-      width: 50%;
-      min-height: 100vh;
+      .box-login-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: stretch;
+        flex-direction: column;
+        font-size: large;
+        margin: auto;
+        background-color: $tertiairy;
+        border-radius: 30px;
+        height: 70vh;
+      }
+      
+     
     }
 
     form {
@@ -39,9 +57,16 @@
       align-items: center;
       gap: 40px;
       margin: 20px 0px 20px 20px;
+      @include desk {
+        gap: 10px;
+      }
       h1,
       p {
         font-size: medium;
+        color: $secondary;
+        @include desk {
+          font-size: large;
+        }
       }
       .form-group {
         display: flex;
@@ -52,13 +77,19 @@
         label {
           text-align: left;
           padding-bottom: 10px;
-          
         }
         
         #btnEye {
           position: absolute;
           right: 0px;
           top: 50px;
+          border-radius: 10px;
+          border: solid 4px $secondary;
+          width: 40px;
+          height: 40px;
+          &:hover{
+            border-color: $primary;
+          }
         }
         
         span {

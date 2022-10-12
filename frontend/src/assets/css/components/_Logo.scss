@@ -2,4 +2,8 @@
     max-width: 30vh;
     display: flex;
     margin: auto;
+    @include desk {
+      max-width: none;
+      
+    }
   }
