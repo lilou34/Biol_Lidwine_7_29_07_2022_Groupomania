@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique @db.VarChar(140)
+  password     String    @db.VarChar(255)
+  pseudo       String    @db.VarChar(255)
+  firstName    String    @db.VarChar(255)
+  lastName     String    @db.VarChar(255)
+  grade        String    @db.VarChar(255)
+  imageProfile String    @db.VarChar(255)
+  role         Role      @default(USER)
+  post         Post[]
+  comment      Comment[]
+  like         Like[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  createAt    DateTime  @default(now())
+  updateAt    DateTime  @updatedAt
+  content     String?
+  image       String?
+  altText     String?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        Role      @default(USER)
+  userId      Int
+  commentaire Comment[]
+  like        Like[]
+}
+
+model Comment {
+  id       Int      @id @default(autoincrement())
+  content  String
+  image    String?
+  altText  String?
+  createAt DateTime @default(now())
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     Role     @default(USER)
+  postId   Int
+  userId   Int
+}
+
+model Like {
+  id     Int  @id @default(autoincrement())
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
