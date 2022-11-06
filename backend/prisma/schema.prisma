@@ -14,11 +14,11 @@ model User {
   id           Int       @id @default(autoincrement())
   email        String    @unique @db.VarChar(140)
   password     String    @db.VarChar(255)
-  pseudo       String    @db.VarChar(255)
-  firstName    String    @db.VarChar(255)
-  lastName     String    @db.VarChar(255)
-  grade        String    @db.VarChar(255)
-  imageProfile String    @db.VarChar(255)
+  pseudo       String    @db.VarChar(255) @default("")
+  firstName    String    @db.VarChar(255)@default("")
+  lastName     String    @db.VarChar(255)@default("")
+  grade        String    @db.VarChar(255)@default("")
+  imageProfile String    @db.VarChar(255)@default("")
   role         Role      @default(USER)
   post         Post[]
   comment      Comment[]

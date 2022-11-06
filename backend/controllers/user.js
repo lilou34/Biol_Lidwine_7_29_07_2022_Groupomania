@@ -53,18 +53,15 @@ exports.signup = async (req, res, next) => {
     bcrypt
       .hash(req.body.password, 10) //bcrypt hash le mdp saler 10 fois
       .then((hash) => {
-        const user = prisma.user.create({
-          email: emailCrypt,
-          password: hash,
-          pseudo: pseudo,
-          firstName: firstName,
-          lastName: lastName,
-          poste: poste,
-        });
-        user
-          .save()
-          .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-          .catch((error) => res.status(400).json({ error }));
+        console.log("creation user");
+        prisma.user
+          .create({
+            data: {
+              email: emailCrypt,
+              password: hash,
+            },
+          })
+          .then(next());
       })
       .catch((error) => res.status(500).json({ error }));
   }
@@ -75,8 +72,10 @@ exports.login = async (req, res, next) => {
   const emailCrypt = cryptoJs
     .HmacSHA256(req.body.email, `${process.env.CLE_EMAIL}`)
     .toString(); //crypt email
-    const user = await prisma.user.findUnique({ email: emailCrypt })
+  prisma.user
+    .findUnique({ where: { email: emailCrypt } })
     .then((user) => {
+      console.log(user);
       if (!user) {
         return res
           .status(401)
@@ -88,7 +87,7 @@ exports.login = async (req, res, next) => {
         .then((valid) => {
           if (!valid) {
             return res
-              .status(401)
+              .status(4011)
               .json({ message: "Paire login/mot de passe incorrecte" });
           }
           //Nous renvoyons le token au front-end avec notre réponse.
