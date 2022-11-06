@@ -13,5 +13,6 @@
             "username": "root",
             "password": "group01*"
         }
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

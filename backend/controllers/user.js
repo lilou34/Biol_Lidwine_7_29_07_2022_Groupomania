@@ -61,7 +61,10 @@ exports.signup = async (req, res, next) => {
               password: hash,
             },
           })
-          .then(next());
+          .then((data) => {
+            console.log(data)
+            next()
+          })
       })
       .catch((error) => res.status(500).json({ error }));
   }
@@ -73,7 +76,7 @@ exports.login = async (req, res, next) => {
     //.HmacSHA256(req.body.email, `${process.env.CLE_EMAIL}`)
     //.toString(); //crypt email
   prisma.user
-    .findUnique({ where: { email: req.body.email, } })
+    .findUnique({where: {email: req.body.email,}})
     .then((user) => {
       console.log(user);
       if (!user) {
