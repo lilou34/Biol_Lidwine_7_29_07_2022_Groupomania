@@ -8,7 +8,7 @@ const dotenv = require("dotenv").config();
 const emailValidator = require("email-validator");
 const passwordValidator = require("password-validator");
 ///////////chiffrage email////////////
-const cryptoJs = require("crypto-js");
+//const cryptoJs = require("crypto-js");
 
 ///////////////// Creation schema passwordValidator////////////
 var schemaMDP = new passwordValidator();
@@ -40,9 +40,9 @@ schemaMDP
 
 /////////////////////////enregistrement nouvel user/////////////////////
 exports.signup = async (req, res, next) => {
-  const emailCrypt = cryptoJs
-    .HmacSHA256(req.body.email, `${process.env.CLE_EMAIL}`)
-    .toString(); //crypt email
+ // const emailCrypt = cryptoJs
+    //.HmacSHA256(req.body.email, `${process.env.CLE_EMAIL}`)
+    //.toString(); //crypt email
 
   if (!emailValidator.validate(req.body.email)) {
     return res.status(400).json({ message: "Adresse email invalide !" });
@@ -57,11 +57,11 @@ exports.signup = async (req, res, next) => {
         prisma.user
           .create({
             data: {
-              email: emailCrypt,
+              email: req.body.email,//emailCrypt,
               password: hash,
             },
           })
-          .then(next());
+          next();
       })
       .catch((error) => res.status(500).json({ error }));
   }
@@ -69,11 +69,11 @@ exports.signup = async (req, res, next) => {
 
 ///////////////////////////conexion user avec compte//////////////////////////
 exports.login = async (req, res, next) => {
-  const emailCrypt = cryptoJs
-    .HmacSHA256(req.body.email, `${process.env.CLE_EMAIL}`)
-    .toString(); //crypt email
+  //const emailCrypt = cryptoJs
+    //.HmacSHA256(req.body.email, `${process.env.CLE_EMAIL}`)
+    //.toString(); //crypt email
   prisma.user
-    .findUnique({ where: { email: emailCrypt } })
+    .findUnique({ where: { email: req.body.email, } })
     .then((user) => {
       console.log(user);
       if (!user) {
@@ -87,12 +87,12 @@ exports.login = async (req, res, next) => {
         .then((valid) => {
           if (!valid) {
             return res
-              .status(4011)
+              .status(402)
               .json({ message: "Paire login/mot de passe incorrecte" });
           }
           //Nous renvoyons le token au front-end avec notre réponse.
           res.status(200).json({
-            userId: user.id,
+            //userId: user.id,
             token: jwt.sign(
               //fonction sign de jsonwebtoken pour chiffrer un nouveau token
               { userId: user.id },
@@ -101,7 +101,7 @@ exports.login = async (req, res, next) => {
             ),
           });
         })
-        .catch((error) => res.status(500).json({ error }));
+        .catch((error) => res.status(501).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };

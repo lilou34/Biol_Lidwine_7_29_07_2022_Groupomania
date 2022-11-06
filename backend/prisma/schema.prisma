@@ -11,14 +11,14 @@ datasource db {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
+  id           Int       @id @default(autoincrement()) @db.Int
   email        String    @unique @db.VarChar(140)
   password     String    @db.VarChar(255)
-  pseudo       String    @db.VarChar(255) @default("")
-  firstName    String    @db.VarChar(255)@default("")
-  lastName     String    @db.VarChar(255)@default("")
-  grade        String    @db.VarChar(255)@default("")
-  imageProfile String    @db.VarChar(255)@default("")
+  pseudo       String    @default("") @db.VarChar(255)
+  firstName    String    @default("") @db.VarChar(255)
+  lastName     String    @default("") @db.VarChar(255)
+  grade        String    @default("") @db.VarChar(255)
+  imageProfile String    @default("") @db.VarChar(255)
   role         Role      @default(USER)
   post         Post[]
   comment      Comment[]
@@ -31,36 +31,36 @@ enum Role {
 }
 
 model Post {
-  id          Int       @id @default(autoincrement())
+  id          Int       @id @default(autoincrement()) @db.Int
   createAt    DateTime  @default(now())
   updateAt    DateTime  @updatedAt
-  content     String?
-  image       String?
-  altText     String?
+  content     String?   @db.VarChar(255)
+  image       String?   @db.VarChar(255)
+  altText     String?   @db.VarChar(255)
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   role        Role      @default(USER)
-  userId      Int
+  userId      Int       @db.Int
   commentaire Comment[]
   like        Like[]
 }
 
 model Comment {
-  id       Int      @id @default(autoincrement())
-  content  String
-  image    String?
-  altText  String?
+  id       Int      @id @default(autoincrement()) @db.Int
+  content  String   @db.Text
+  image    String?  @db.VarChar(255)
+  altText  String?  @db.VarChar(255)
   createAt DateTime @default(now())
   post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   role     Role     @default(USER)
-  postId   Int
-  userId   Int
+  postId   Int      @db.Int
+  userId   Int      @db.Int
 }
 
 model Like {
-  id     Int  @id @default(autoincrement())
+  id     Int  @id @default(autoincrement()) @db.Int
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId Int
+  postId Int  @db.Int
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId Int  @db.Int
 }
