@@ -61,7 +61,7 @@ exports.signup = async (req, res, next) => {
               password: hash,
             },
           })
-          next();
+          .then(next());
       })
       .catch((error) => res.status(500).json({ error }));
   }
