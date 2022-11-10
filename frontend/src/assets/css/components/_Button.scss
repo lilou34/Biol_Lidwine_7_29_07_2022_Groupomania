@@ -5,12 +5,13 @@
   padding: 0 20px;
   position: relative;
   text-align: center;
-
   border: 3px solid $tertiairy;
   border-radius: 15px;
   font-weight: 900;
+  margin-top: 10px;
   & .texte {
     color: $tertiairy;
+    font-size: small;
   }
   &:hover {
     background-color: $tertiairy;

@@ -4,10 +4,10 @@ import Logo from "../Logo";
 
 const Header = () => {
   return (
-    <div>
+    <header>
       <Logo className="logo" />
       <Navigation />
-    </div>
+    </header>
   );
 };
 

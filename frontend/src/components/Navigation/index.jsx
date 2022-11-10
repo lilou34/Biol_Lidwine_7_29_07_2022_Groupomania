@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 const Navigation = () => {
     return (
-        <div className='navigation'>
+        <nav className='navigation'>
             <ul>
                 <NavLink to='/' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Fil d'actualité</li>
@@ -14,11 +14,11 @@ const Navigation = () => {
                 <NavLink to='/Users' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Utilisateurs</li>
                 </NavLink>
-                <NavLink to='/Users' className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                <NavLink to='/login' className={(nav) => (nav.isActive ? "nav-active" : "")}>
                     <li>Déconnexion</li>
                 </NavLink>
             </ul>
-        </div>
+        </nav>
     );
 };
 

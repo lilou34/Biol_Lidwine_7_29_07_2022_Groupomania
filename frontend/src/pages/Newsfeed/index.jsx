@@ -3,10 +3,9 @@ import Header from "../../components/Header";
 
 function Newsfeed() {
   return (
-    <div>
+    <main className="main-newsfeed">
       <Header />
-      <h1>Newsfeed</h1>
-    </div>
+    </main>
   );
 }
 

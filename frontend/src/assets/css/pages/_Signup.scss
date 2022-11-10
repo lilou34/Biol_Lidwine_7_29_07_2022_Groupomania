@@ -4,18 +4,20 @@
   flex-wrap: nowrap;
   width: 100%;
   height: 100%;
-  min-height: 100vh;
+  min-height: 70vh;
   justify-content: flex-end;
-  @include tab {
+  background-color: $secondary;
+  @include desk {
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
   }
   .img-signup {
     object-fit: cover;
     width: 100%;
     margin-top: 10px;
     height: 200px;
-    @include tab {
+    @include desk {
       height: 100%;
       width: 50%;
       min-height: 100vh;
@@ -24,21 +26,32 @@
   }
   .box-signup {
     object-fit: cover;
-    width: 100%;
-    height: 50%;
-    align-items: center;
-    text-align: center;
+    background-color: $tertiairy;
+    width: 98%;
+    margin: auto;
+    border-radius: 30px;
+    margin-top: 10px;
+    padding: 10px 0px;
 
-    @include tab {
-      min-height: 100vh;
-      width: 50%;
+    @include desk {
+      min-height: 95vh;
+      margin: auto;
+      width: 48%;
+    }
+    
+    .newsfeed-link{
+      margin-left: 0px;
+      align-self: start;
+      align-items: flex-start;
     }
     h1{
       margin-top: 10px;
+      color: $secondary;
     }
     p{
       font-size: x-small;
       font-style: italic;
+      color: $secondary;
     }
     #form-signup {
       display: flex;
@@ -60,16 +73,19 @@
           text-align: left;
           padding-bottom: 5px;
           font-size: 18px;
+          color: $secondary;
         }
         span {
           margin-top: 5px;
           font-size: x-small;
           text-align: start;
+          color: $secondary;
         }
         .form-control {
           width: 100%;
-          padding: 10px;
+          padding: 5px;
           &::placeholder {
+            font-size: small;
             color: lighten($tertiairy, 40%);
           }
         }

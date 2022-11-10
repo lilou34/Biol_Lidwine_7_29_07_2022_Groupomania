@@ -9,7 +9,7 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="container-login">
+    <main className="container-login">
       <section className="imageLogin">
         <img
           src={image}
@@ -42,6 +42,9 @@ const Login = () => {
                 placeholder="exemple: Motdepasse01"
                 required
               />
+              <span className="infos">
+                Minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères
+              </span>
               <button id="btnEye">
                 <i className="fas fa-eye" id="eye"></i>
               </button>
@@ -59,7 +62,7 @@ const Login = () => {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

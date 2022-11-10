@@ -5,21 +5,23 @@ import image from "./perif_paris.jpg";
 import Logo from "../../components/Logo";
 
 const Signup = () => {
-
+const instance = axios.create({
+  
+});
 
   return (
-    <div className="container-signup">
+    <main className="container-signup">
       <img
         src={image}
         alt="Périphérique Parisien tombé du jour"
         className="img-signup"
       />
-      <div className="box-signup">
+      <section className="box-signup">
         <Logo className="logo" />
-
+        
         <form id="form-signup" method="post" action="#">
           <h1>Création de Compte</h1>
-          <p>Attention un seul compte par utilisateur / adresse</p>
+          <p>Attention un seul compte par adresse email !!!</p>
 
           <div className="form-group">
             <label htmlFor="email">Adresse email *</label>
@@ -88,8 +90,8 @@ const Signup = () => {
             </NavLink>
           </button>
         </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 const emailReg =

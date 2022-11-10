@@ -8,7 +8,7 @@ const dotenv = require("dotenv").config();
 const emailValidator = require("email-validator");
 const passwordValidator = require("password-validator");
 ///////////chiffrage email////////////
-//const cryptoJs = require("crypto-js");
+const cryptoJs = require("crypto-js");
 
 ///////////////// Creation schema passwordValidator////////////
 var schemaMDP = new passwordValidator();
@@ -50,32 +50,35 @@ exports.signup = async (req, res, next) => {
     return res.status(401).json({ message: "Mot de passe invalide !" });
   }
   const emailFindUnique = await prisma.user.findUnique({
-    where: { where: { email: req.body.email }  },
+    where: { email: req.body.email },
   });
-  
+
   if (emailFindUnique) {
-    return res.status(402).json({ message: "Un compte existe déjà avec cette adresse mail, merci de vous connecter !" });
-  };
+    return res
+      .status(402)
+      .json({
+        message:
+          "Un compte existe déjà avec cette adresse mail, merci de vous connecter !",
+      });
+  }
   const hash = await bcrypt.hash(req.body.password, 10);
   console.log(hash);
-    console.log("creation");
+  console.log("creation");
   try {
-    if (!emailFindUnique) {
+    if (!emailFindUnique){
       await prisma.user.create({
         data: {
           email: req.body.email,
           password: hash,
+          pseudo: pseudo,
         },
-      });
-      
+      })
     }
     return next();
-    console.log("user created"); 
     
   } catch (error) {
     res.status(500).json({ message: "enregistrement echoué" });
   }
-  
 };
 
 ///////////////////////////conexion user avec compte//////////////////////////
@@ -85,7 +88,7 @@ exports.login = async (req, res, next) => {
   //.toString(); //crypt email
 
   try {
-    const user = prisma.user.findUnique({ where: { email: req.body.email } });
+    const user = await prisma.user.findUnique({ where: { email: req.body.email } });
     if (!user) {
       res.status(401).json({ message: "Paire login/mot de passe incorrecte" });
     }
@@ -107,33 +110,3 @@ exports.login = async (req, res, next) => {
     return res.status(500).json({ error });
   }
 };
-/*.then((user) => {
-      console.log(user);
-      if (!user) {
-        return res
-          .status(401)
-          .json({ message: "Paire login/mot de passe incorrecte" });
-      }
-      //Si l'e-mail correspond à un utilisateur existant, nous continuons.
-      bcrypt
-        .compare(req.body.password, user.password) //fonction compare de bcrypt pour comparer le mot de passe entré par l'user avec le hash enregistré dans la base de données
-        .then((valid) => {
-          if (!valid) {
-            return res
-              .status(402)
-              .json({ message: "Paire login/mot de passe incorrecte" });
-          }
-          //Nous renvoyons le token au front-end avec notre réponse.
-          res.status(200).json({
-            //userId: user.id,
-            token: jwt.sign(
-              //fonction sign de jsonwebtoken pour chiffrer un nouveau token
-              { userId: user.id },
-              process.env.TOKEN_SECRET, // chiffrage secret
-              { expiresIn: "24h" } //durée de validité du token à 24 heures
-            ),
-          });
-        })
-        .catch((error) => res.status(501).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));*/

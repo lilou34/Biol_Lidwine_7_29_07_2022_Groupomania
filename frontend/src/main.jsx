@@ -7,7 +7,6 @@ import Signup from "./pages/Signup";
 import Profil from "./pages/Profil";
 import Users from "./pages/Users";
 import Newsfeed from "./pages/Newsfeed";
-import "../node_modules/normalize-scss";
 import "./assets/css/index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -6,14 +6,12 @@
   height: 100%;
   min-height: 99.5vh;
   margin: auto;
-  
-  @include tab {
+  background-color: $secondary;
+
+  @include desk {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: stretch;
-    .imageLogin{
-    width: 50%;
-    }
   }
 
   .img-login {
@@ -21,7 +19,7 @@
     width: 100%;
     margin-top: 20px;
     height: 300px;
-    @include tab {
+    @include desk {
       height: 100%;
       margin-top: 0;
       min-height: 90vh;
@@ -29,36 +27,39 @@
   }
   .box-login {
     margin-block: auto;
-    margin-inline: auto;
-    width: 48%;
+    width: 100%;
     height: 50%;
     align-items: center;
     text-align: center;
-    @include tab {
+    @include desk {
       height: 100%;
-      .box-login-container {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: stretch;
-        flex-direction: column;
-        font-size: large;
-        margin: auto;
-        background-color: $tertiairy;
-        border-radius: 30px;
-        height: 70vh;
-      }
-      
-     
     }
-
+    .box-login-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: stretch;
+      flex-direction: column;
+      width: 98%;
+      font-size: large;
+      margin: auto;
+      margin-top: 10px;
+      background-color: $tertiairy;
+      border-radius: 30px;
+      height: 70vh;
+      @include desk {
+        width: 98%;
+      }
+      a {
+        margin-left: 0px;
+      }
+    }
     form {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 40px;
-      margin: 20px 0px 20px 20px;
       @include desk {
         gap: 10px;
+        margin: 20px 0px 20px 0px;
       }
       h1,
       p {
@@ -72,36 +73,44 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        width: 90%;
+        width: 85%;
         position: relative;
+        margin-bottom: 7px;
+        @include desk {
+          width: 90%;
+        }
         label {
           text-align: left;
-          padding-bottom: 10px;
+          padding-top: 10px;
+          color: $secondary;
+          font-size: small;
         }
-        
+
         #btnEye {
           position: absolute;
-          right: 0px;
-          top: 50px;
+          right: -18px;
+          top: 31px;
           border-radius: 10px;
           border: solid 4px $secondary;
-          width: 40px;
-          height: 40px;
-          &:hover{
+          width: 45px;
+          height: 45px;
+          &:hover {
             border-color: $primary;
           }
         }
-        
+
         span {
           margin-top: 5px;
           font-size: x-small;
           text-align: start;
+          color: $secondary;
         }
         .form-control {
           width: 90%;
           padding: 10px;
-          margin-top: 10px;
+          //margin-top: 10px;
           &::placeholder {
+            font-size: small;
             color: lighten($tertiairy, 40%);
           }
         }
@@ -109,8 +118,8 @@
     }
   }
   .lien-signup {
-    margin: 60px 20px 20px 20px;
-    color: $tertiairy;
+    //margin: 60px 20px 20px 20px;
+    color: $secondary;
     font-style: italic;
     font-size: small;
     &:hover {

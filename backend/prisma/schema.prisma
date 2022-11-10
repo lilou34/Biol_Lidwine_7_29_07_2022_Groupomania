@@ -13,11 +13,11 @@ datasource db {
 model User {
   id           Int       @id @default(autoincrement()) @db.Int
   email        String    @unique @db.VarChar(140)
-  password     String    @db.VarChar(255)
-  pseudo       String    @default("") @db.VarChar(255)
-  firstName    String    @default("") @db.VarChar(255)
-  lastName     String    @default("") @db.VarChar(255)
-  grade        String    @default("") @db.VarChar(255)
+  password     String    @db.VarChar(50)
+  pseudo       String    @default("") @db.VarChar(50)
+  firstName    String    @default("") @db.VarChar(50)
+  lastName     String    @default("") @db.VarChar(50)
+  grade        String    @default("") @db.VarChar(100)
   imageProfile String    @default("") @db.VarChar(255)
   role         Role      @default(USER)
   post         Post[]
