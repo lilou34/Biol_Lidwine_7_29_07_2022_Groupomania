@@ -1,12 +1,12 @@
 import React from "react";
-import { useState } from "react";
+//import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../components/Logo";
 
 import image from "./homme_tour_controle.jpg";
 
 const Login = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  //const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <main className="container-login">

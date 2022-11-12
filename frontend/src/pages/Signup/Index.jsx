@@ -1,13 +1,46 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import image from "./perif_paris.jpg";
 import Logo from "../../components/Logo";
+const instance = axios.create({});
 
 const Signup = () => {
-const instance = axios.create({
-  
-});
+  const validSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("email invalide, une adresse valide doit avoir un @ et .")
+      .required("l'email est obligatoire"),
+    password: Yup.string()
+      .required("Mot de passe est obligatoire")
+      .matches(
+        /(?=.*[A-Z])(?=.*[a-z])([0-9])/,
+        "Au moins une majuscule, une minuscule, un chiffre entier"
+      )
+      .min(8, "Votre mot de passe doit contenir minimum 8 caractères")
+      .max(50, "Votre mot de passe doit être plus petit que 50 caractères"),
+    firstname: Yup.string()
+      .matches(
+        /^([A-Za-z]{3,20}-{0,1})?([A-Za-z]{3,20})$/,
+        "chiffre interdit pour le nom"
+      )
+      .min(1, "Nom trop petit!")
+      .max(50, "Nom trop long!"),
+    lastname: Yup.string()
+      .matches(
+        /^([A-Za-z]{3,20}-{0,1})?([A-Za-z]{3,20})$/,
+        "chiffre interdit pour le prénom"
+      )
+      .min(1, "Prénom trop petit!")
+      .max(50, "Prénom trop long!"),
+    pseudo: Yup.string()
+      .required("ce champ est obligatoire")
+      .min(1, "trop petit!")
+      .max(50, "trop long!"),
+    poste: Yup.string().min(1, "trop petit!").max(50, "trop long!"),
+  });
 
   return (
     <main className="container-signup">
@@ -18,7 +51,7 @@ const instance = axios.create({
       />
       <section className="box-signup">
         <Logo className="logo" />
-        
+
         <form id="form-signup" method="post" action="#">
           <h1>Création de Compte</h1>
           <p>Attention un seul compte par adresse email !!!</p>
@@ -26,12 +59,15 @@ const instance = axios.create({
           <div className="form-group">
             <label htmlFor="email">Adresse email *</label>
             <input
-              className="name form-control"
+              className="emailInput form-control"
               type="email"
               placeholder="exemple: dupont@gmail.com"
               required
+              autoFocus
             />
-            <span className="infos">Doit comporter @ et . (.com ou .fr ....)</span>
+            <span className="infos">
+              Doit comporter @ et . (.com ou .fr ....)
+            </span>
           </div>
 
           <div className="form-group">
@@ -42,7 +78,9 @@ const instance = axios.create({
               placeholder="exemple: Motdepasse01"
               required
             />
-            <span className="infos">Minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères</span>
+            <span className="infos">
+              Minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères
+            </span>
           </div>
 
           <div className="form-group">
@@ -52,23 +90,22 @@ const instance = axios.create({
               type="text"
               placeholder="exemple: Pierrot34"
               required
-              autoFocus/>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="firstName">Prénom</label>
-            <input
-              className="firstName form-control"
-              type="text"
-              placeholder="exemple: Pierre"
-              autoFocus
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Nom</label>
+            <label htmlFor="lastName">Prénom</label>
             <input
-              className="name form-control"
+              className="lastName form-control"
+              type="text"
+              placeholder="exemple: Pierre"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="firstname">Nom</label>
+            <input
+              className="firstname form-control"
               type="text"
               placeholder="exemple: Dupont"
             />
@@ -94,23 +131,5 @@ const instance = axios.create({
     </main>
   );
 };
-const emailReg =
-/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+[a-zA-Z0-9-]+)/;
-const passwordReg = /^[A-Za-z0-9]\w{8,}$/;
-function emailValidation(email, password) {
-if (!email.match(emailReg)) {
-  alert("error : votre adresse email doit être valide !");
-  return;
-} else if (!password.match(passwordReg)) {
-  alert("error: le mot de passe doit contenir minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères ! ");
-  return;
-}
-signup();
-}
 
-const EmailErr = () => (
-<div className="error-password-div">
-  votre adresse email n'est pas valide
-</div>
-);
 export default Signup;

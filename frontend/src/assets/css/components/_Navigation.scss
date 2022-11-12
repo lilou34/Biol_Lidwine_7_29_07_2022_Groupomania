@@ -11,7 +11,15 @@ nav {
     flex-wrap: wrap;
     align-items: stretch;
     gap: 2vh;
-    
+    width: 180px;
+    padding-bottom: 30px;
+    @include tab {
+      flex-direction: row;
+      width: 100%;
+      margin: auto;
+      justify-content: space-evenly;
+      gap: 0vh;
+    }
     a {
       margin-left: 10px;
       color: $secondary;
@@ -30,9 +38,11 @@ nav {
 
     .nav-active {
       position: relative;
-
+      li{
+        text-decoration: none;
+      }
       &::after {
-        content: "";
+        content: " ";
         height: 4px;
         width: 0;
         background: $secondary;
@@ -43,7 +53,11 @@ nav {
         transform: translateX(-50%);
         -webkit-animation: anim 0.3s ease forwards;
         animation: anim 0.6s ease forwards;
-
+        
+        @include tab {
+          height: 6px;
+          bottom: -6px;
+        }
         @-webkit-keyframes anim {
           to {
             width: 100%;
