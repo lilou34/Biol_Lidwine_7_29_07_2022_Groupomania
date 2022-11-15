@@ -1,8 +1,10 @@
+@use '../../sass/var';
+
 .logo {
     max-width: 35vh;
     display: flex;
     margin: auto;
-    @include desk {
+    @include var.desk {
       max-width: none;
       
     }

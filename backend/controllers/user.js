@@ -70,7 +70,6 @@ exports.signup = async (req, res, next) => {
         data: {
           email: req.body.email,
           password: hash,
-          pseudo: pseudo,
         },
       })
     }

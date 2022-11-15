@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "../../components/Header";
-
+import css from "./Newsfeed.module.scss";
 function Newsfeed() {
   return (
-    <main className="main-newsfeed">
+    <main className={css.mainNewsfeed}>
       <Header />
     </main>
   );

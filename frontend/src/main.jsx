@@ -7,7 +7,7 @@ import Signup from "./pages/Signup";
 import Profil from "./pages/Profil";
 import Users from "./pages/Users";
 import Newsfeed from "./pages/Newsfeed";
-import "./assets/css/index.scss";
+import "./main.scss"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

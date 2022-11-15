@@ -1,4 +1,6 @@
-.container-login {
+@use "../../sass/var";
+@use "../../sass/Button";
+.containerLogin {
   display: flex;
   flex-direction: column-reverse;
   flex-wrap: nowrap;
@@ -6,35 +8,35 @@
   height: 100%;
   min-height: 99.5vh;
   margin: auto;
-  background-color: $secondary;
+  background-color: var.$secondary;
 
-  @include desk {
+  @include var.desk {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: stretch;
   }
 
-  .img-login {
+  .imgLogin {
     object-fit: cover;
     width: 100%;
     margin-top: 20px;
     height: 300px;
-    @include desk {
+    @include var.desk {
       height: 100%;
       margin-top: 0;
       min-height: 90vh;
     }
   }
-  .box-login {
+  .boxLogin {
     margin-block: auto;
     width: 100%;
     height: 50%;
     align-items: center;
     text-align: center;
-    @include desk {
+    @include var.desk {
       height: 100%;
     }
-    .box-login-container {
+    .boxLoginContainer {
       display: flex;
       justify-content: space-evenly;
       align-items: stretch;
@@ -43,10 +45,10 @@
       font-size: large;
       margin: auto;
       margin-top: 10px;
-      background-color: $tertiairy;
+      background-color: var.$tertiairy;
       border-radius: 30px;
       height: 70vh;
-      @include desk {
+      @include var.desk {
         width: 98%;
       }
       a {
@@ -57,45 +59,45 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      @include desk {
+      @include var.desk {
         gap: 10px;
         margin: 20px 0px 20px 0px;
       }
       h1,
       p {
         font-size: medium;
-        color: $secondary;
-        @include desk {
+        color: var.$secondary;
+        @include var.desk {
           font-size: large;
         }
       }
-      .form-group {
+      .formGroup {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 85%;
         position: relative;
         margin-bottom: 7px;
-        @include desk {
+        @include var.desk {
           width: 90%;
         }
         label {
           text-align: left;
           padding-top: 10px;
-          color: $secondary;
+          color: var.$secondary;
           font-size: small;
         }
 
-        #btnEye {
+        .btnEye {
           position: absolute;
           right: -18px;
           top: 31px;
           border-radius: 10px;
-          border: solid 4px $secondary;
+          border: solid 4px var.$secondary;
           width: 45px;
           height: 45px;
           &:hover {
-            border-color: $primary;
+            border-color: var.$primary;
           }
         }
 
@@ -103,23 +105,23 @@
           margin-top: 5px;
           font-size: x-small;
           text-align: start;
-          color: $secondary;
+          color: var.$secondary;
         }
-        .form-control {
+        .formControl {
           width: 90%;
           padding: 10px;
           //margin-top: 10px;
           &::placeholder {
             font-size: small;
-            color: lighten($tertiairy, 40%);
+            color: lighten(var.$tertiairy, 40%);
           }
         }
       }
     }
   }
-  .lien-signup {
+  .lienSignup {
     //margin: 60px 20px 20px 20px;
-    color: $secondary;
+    color: var.$secondary;
     font-style: italic;
     font-size: small;
     &:hover {

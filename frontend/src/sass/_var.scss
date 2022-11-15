@@ -1,4 +1,12 @@
-/*média queries, beakpoint*/
+$primary: #fd2d01;
+$secondary: #ffd7d7;
+$tertiairy: #4e5166;
+
+//media queries
+$breakpoints: (
+  tablette: 688px,
+  desktop: 992px,
+);
 @mixin tab {
   @media screen and (min-width: map-get($breakpoints, tablette)) {
     @content;
