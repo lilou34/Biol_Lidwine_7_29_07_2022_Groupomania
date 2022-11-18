@@ -1,12 +1,17 @@
 import React from "react";
-//import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../../components/Logo";
 
 import image from "./homme_tour_controle.jpg";
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  //import { faEye } from '@fortawesome/free-solid-svg-icons'
+
+
+
 import css from "./Login.module.scss";
 const Login = () => {
-  //const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <main className={css.containerLogin}>
@@ -45,20 +50,18 @@ const Login = () => {
               <span className={css.infos}>
                 Minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères
               </span>
-              <button className={css.btnEye}>
-                
-              </button>
+              
             </div>
             <button className={css.btn} type="submit">
-              <link to="/" className={css.texte}>
+              <Link to="/" className={css.texte}>
                 Connexion
-              </link>
+              </Link>
             </button>
           </form>
           <p>
-            <link to="/Signup" className={css.lienSignup}>
+            <Link to="/Signup" className={css.lienSignup}>
               Pas de compte ? Cliquez ici pour créer un compte
-            </link>
+            </Link>
           </p>
         </div>
       </section>
@@ -69,3 +72,6 @@ const Login = () => {
 export default Login;
 //<i className={css.fas, css.fa-eye}></i>
 //<NavLink to='/' className={(nav) => (nav.isActive ? "css.nav-active" : "")}></NavLink>
+//<button id={css.btnEye} className={(nav) => (nav.isActive ? "css.nav-active" : "")}>
+//<FontAwesomeIcon icon={faEye} className={css.eye} />
+//</button>

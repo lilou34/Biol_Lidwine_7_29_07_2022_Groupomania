@@ -8,7 +8,7 @@ const dotenv = require("dotenv").config();
 const emailValidator = require("email-validator");
 const passwordValidator = require("password-validator");
 ///////////chiffrage email////////////
-const cryptoJs = require("crypto-js");
+//const cryptoJs = require("crypto-js");
 
 ///////////////// Creation schema passwordValidator////////////
 var schemaMDP = new passwordValidator();

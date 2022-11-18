@@ -88,7 +88,7 @@
           font-size: small;
         }
 
-        .btnEye {
+        #btnEye {
           position: absolute;
           right: -18px;
           top: 31px;
@@ -96,6 +96,9 @@
           border: solid 4px var.$secondary;
           width: 45px;
           height: 45px;
+          .eye{
+            color: var.$tertiairy;
+          }
           &:hover {
             border-color: var.$primary;
           }

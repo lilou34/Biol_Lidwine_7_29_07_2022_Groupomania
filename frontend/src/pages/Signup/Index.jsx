@@ -42,32 +42,34 @@ const validSchema = Yup.object().shape({
   grade: Yup.string().min(1, "trop petit!").max(50, "trop long!"),
 });
 
+console.log(validSchema);
 const Signup = () => {
+  //désactive le bouton d'envoi tant que le formulaire n'est pas correcetement rempli
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(validSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
-
   const [resStatus, setResStatus] = useState("");
 
   const onSubmitHandler = (data) => {
     console.log(data);
-    axios
-      .post("auth/signup", data)
-      .then(function (response) {
-        console.log(response.status);
-        if (response.status === 200) {
-          setResStatus("Enregistrement réussi!");
-        } else {
-          setResStatus("error");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+    if (response.status === 200) {
+      axios({
+        url: "auth/signup",
+        method: "POST",
+      }).then((res) => console.log("enregistrement de user dans bdd"));
+      setResStatus("Enregistrement réussi!");
+    } else {
+      setResStatus("error");
+    }
   };
   console.log(resStatus);
 
@@ -88,14 +90,13 @@ const Signup = () => {
           <div className={css.formGroup}>
             <label htmlFor="email">Adresse email *</label>
             <input
-              {...register("email")}
               className={`email ${
-                errors.email ? "is-invalid" : ""
+                errors.email ? "is-invalid" : "email ivalide"
               }`}
               type="email"
               placeholder="exemple: dupont@gmail.com"
-              required
               autoFocus
+              {...register("email")}
             />
             <div className={css.invalidFeedback}>{errors.email?.message}</div>
             <span className={css.infos}>
@@ -105,30 +106,31 @@ const Signup = () => {
 
           <div className={css.formGroup}>
             <label htmlFor="password">Mot de passe *</label>
-            <input {...register("password")}
+            <input
               className={`password ${
-                errors.password ? "is-invalid" : ""
+                errors.password ? "is-invalid" : "mot de passe invalide"
               }`}
               type="text"
               placeholder="exemple: Motdepasse01"
-              required
+              {...register("password")}
             />
-            <div className={css.invalidFeedback}>{errors.password?.message}</div>
+            <div className={css.invalidFeedback}>
+              {errors.password?.message}
+            </div>
             <span className={css.infos}>
               Minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères
             </span>
           </div>
 
           <div className={css.formGroup}>
-            <label htmlFor="pseudo">Pseudo *</label>
+            <label htmlFor="pseudo">Pseudo</label>
             <input
-               {...register("pseudo")}
               className={`pseudo ${
-                errors.pseudo ? "is-invalid" : ""
+                errors.pseudo ? "is-invalid" : "pseudo invalide"
               }`}
               type="text"
               placeholder="exemple: Pierrot34"
-              required
+              {...register("pseudo")}
             />
             <div className={css.invalidFeedback}>{errors.pseudo?.message}</div>
           </div>
@@ -136,44 +138,48 @@ const Signup = () => {
           <div className={css.formGroup}>
             <label htmlFor="lastName">Prénom</label>
             <input
-               {...register("lastName")}
               className={`lastName ${
-                errors.lastName ? "is-invalid" : ""
+                errors.lastName ? "is-invalid" : "prénom invalide"
               }`}
               type="text"
               placeholder="exemple: Pierre"
+              {...register("lastName")}
             />
-            <div className={css.invalidFeedback}>{errors.lastName?.message}</div>
+            <div className={css.invalidFeedback}>
+              {errors.lastName?.message}
+            </div>
           </div>
 
           <div className={css.formGroup}>
             <label htmlFor="firstName">Nom</label>
             <input
-              {...register("firstName")}
               className={`firstName ${
-                errors.firstName ? "is-invalid" : ""
+                errors.firstName ? "is-invalid" : "nom invalide"
               }`}
               type="text"
               placeholder="exemple: Dupont"
+              {...register("firstName")}
             />
-            <div className={css.invalidFeedback}>{errors.firstName?.message}</div>
+            <div className={css.invalidFeedback}>
+              {errors.firstName?.message}
+            </div>
           </div>
 
           <div className={css.formGroup}>
             <label htmlFor="grade">Poste dans l'entreprise</label>
             <input
-              {...register("grade")}
               className={`grade ${
-                errors.grade ? "is-invalid" : ""
+                errors.grade ? "is-invalid" : "grade invalide"
               }`}
               type="text"
               placeholder="exemple: Secrétaire"
+              {...register("grade")}
             />
             <div className={css.invalidFeedback}>{errors.grade?.message}</div>
           </div>
 
           <p>* Champs obligatoires</p>
-          <button className={css.btn} type="submit">
+          <button className={css.btn} type="submit" disabled={isSubmitting}>
             <NavLink to="/Newsfeed" className={css.texte}>
               Créer un compte
             </NavLink>
