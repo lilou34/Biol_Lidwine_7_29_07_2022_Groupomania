@@ -7,5 +7,6 @@ const userCtrl = require('../controllers/user');
 
 router.post('/signup',userCtrl.signup, userCtrl.login);// , userCtrl.login permet de se connecter directement sans devoir retaper
 router.post('/login', max.limiter, userCtrl.login);
+router.get('/users', userCtrl.users);
 
 module.exports = router;

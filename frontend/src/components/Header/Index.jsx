@@ -1,12 +1,13 @@
 import React from "react";
-import Navigation from "../../components/Navigation";
-import Logo from "../Logo";
+import Navigation from "../navigation";
+import Logo from "../logo";
 import css from "./header.module.scss";
 const Header = () => {
   return (
-    <header className={css.header} >
-      <Logo/>
+    <header className={css.header}>
+      <Logo />
       <Navigation />
+      <h1>TESTTEST</h1>
     </header>
   );
 };

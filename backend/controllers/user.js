@@ -38,6 +38,25 @@ schemaMDP
     "Azerty2",
   ]); // entrées interdites
 
+  exports.users = async (req, res) => {
+    try {
+        const users = await prisma.user.findMany({
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                grade: true,
+            },
+        });
+        return res.status(200).json({ users });
+        
+        
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
+    
+};
 /////////////////////////enregistrement nouvel user/////////////////////
 exports.signup = async (req, res, next) => {
   /*const emailCrypt = cryptoJs

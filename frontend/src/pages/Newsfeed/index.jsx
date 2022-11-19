@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/Header";
+import Header from "../../components/header";
 import css from "./Newsfeed.module.scss";
 
 const Newsfeed = () => {
@@ -8,6 +8,6 @@ const Newsfeed = () => {
       <Header />
     </main>
   );
-}
+};
 
 export default Newsfeed;

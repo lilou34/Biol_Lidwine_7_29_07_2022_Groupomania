@@ -1,13 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../components/Logo";
+import Logo from "../../components/logo";
 
 import image from "./homme_tour_controle.jpg";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-  //import { faEye } from '@fortawesome/free-solid-svg-icons'
-
-
+//import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 import css from "./Login.module.scss";
 const Login = () => {
@@ -50,7 +48,6 @@ const Login = () => {
               <span className={css.infos}>
                 Minimum : 1 majuscule, 1 minuscule, 1 chiffre, 8 caractères
               </span>
-              
             </div>
             <button className={css.btn} type="submit">
               <Link to="/" className={css.texte}>

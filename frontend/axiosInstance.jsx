@@ -1,4 +1,4 @@
-import axios from "axios";
+/*import axios from "axios";
 
 // Creates an instance to use with Axios calls
 
@@ -11,4 +11,4 @@ const instance = axios.create({
   },
 });
 
-export default instance;
+export default instance;*/

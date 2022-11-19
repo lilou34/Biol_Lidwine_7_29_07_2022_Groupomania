@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Signup from "./pages/signup/Index";
+import Login from "./pages/login";
 
-import Profil from "./pages/Profil";
-import Users from "./pages/Users";
-import Newsfeed from "./pages/Newsfeed";
+import Profil from "./pages/profil";
+import Users from "./pages/users";
+import Newsfeed from "./pages/newsfeed";
 import css from "./main.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
