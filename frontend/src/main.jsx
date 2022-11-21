@@ -1,26 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signup from "./pages/signup/Index";
-import Login from "./pages/login";
+import Signup from "./pages/Signup/Signup";
+//import Login from "./pages/Login";
 
-import Profil from "./pages/profil";
-import Users from "./pages/users";
-import Newsfeed from "./pages/newsfeed";
+//import Profil from "./pages/Profil";
+//import Users from "./pages/Users";
+//import Newsfeed from "./pages/Newsfeed";
 import css from "./main.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-      <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+  <BrowserRouter>
+    <Routes>
+      <Route path="/signup" element={<Signup />} />
+    </Routes>
+  </BrowserRouter>
+);
+/*<Route path="/login" element={<Login />} />
         <Route path="/" element={<Newsfeed />} />
         
         <Route path="/profil" element={<Profil />} />
         <Route path="/users" element={<Users />} />
-        <Route path="*" element={<Newsfeed />} />
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+        <Route path="*" element={<Newsfeed />} />*/

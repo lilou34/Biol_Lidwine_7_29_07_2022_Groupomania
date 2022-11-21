@@ -84,14 +84,14 @@ exports.signup = async (req, res, next) => {
   console.log(hash);
   console.log("creation");
   try {
-    if (!emailFindUnique){
+    
       await prisma.user.create({
         data: {
           email: req.body.email,
           password: hash,
         },
       })
-    }
+    
     return next();
     
   } catch (error) {

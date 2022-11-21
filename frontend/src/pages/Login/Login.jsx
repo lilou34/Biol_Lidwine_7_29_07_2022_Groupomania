@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../components/logo";
+import Logo from "../../components/Logo";
 
 import image from "./homme_tour_controle.jpg";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
