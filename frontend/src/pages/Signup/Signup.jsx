@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
@@ -9,69 +9,47 @@ import image from "./perif_paris.jpg";
 import Logo from "../../components/Logo/Logo";
 import css from "./Signup.module.scss";
 
-const Signup = () => {
-  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
-  const regexText = ("^[a-z]+[ \-']?[[a-z]+[ \-']?]*[a-z]+$", "gi")
-  ;
-  const validSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("email invalide, une adresse valide doit avoir un @ et .")
-      .required("l'email est obligatoire")
-      .typeError("un email valide contient @ et .")
-      .max(255, "email trop long"),
+const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const regexPassword = /^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$/;
+const regexText = /^[a-zÀ-ÖØ-öø-ÿ -]+$/i;
+const validSchema = Yup.object({
+  email: Yup.string()
+  .email()
+    .required("tu as tout faux")
+    .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
+    .min (5, "email trop petit!")
+    .max(50, "email trop long!"),
 
-    password: Yup.string()
-      .required("Mot de passe est obligatoire")
-      .matches(regexPassword)
-      .min(8, "Votre mot de passe doit contenir minimum 8 caractères")
-      .max(50, "Votre mot de passe doit être plus petit que 50 caractères")
-      .typeError(
-        "min. 8 caractères dont min. 1 majuscule 1 minuscule 1 chiffre"
-      ),
+  password: Yup.string()
+    .required("tu as tout nul")
+    .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
+    .min (7, "password trop petit!")
+    .max(50, "password trop long!"),
 
     firstname: Yup.string()
-      .matches(regexText)
-      .typeError("pas de chiffre ou caratères spéciaux")
-      .min(1, "Nom trop petit!")
-      .max(50, "Nom trop long!"),
+    .matches(regexText, "les chiffres et caractères spéciaux sont interdits")
+    .min (2, "Nom trop petit!")
+    .max(50, "Nom trop long!"),
 
     lastname: Yup.string()
-      .matches(regexText)
-      .typeError("pas de chiffre ou caratères spéciaux")
-      .min(1, "Prénom trop petit!")
-      .max(50, "Prénom trop long!"),
+    .matches(regexText, "les chiffres et caractères spéciaux sont interdits")
+    .min (2, "préom trop petit!")
+    .max(50, "préom trop long!"),
 
     grade: Yup.string()
-      .matches(regexText)
-      .min(1, "trop petit!")
-      .max(50, "trop long!")
-      .typeError("pas de chiffres ou caratères spéciaux"),
+    .matches(regexText, "les chiffres et caractères spéciaux sont interdits")
+    .min (2, "grade trop petit!")
+    .max(50, "grade trop long!"),
+
+});
+
+const Signup = () => {
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    resolver: yupResolver(validSchema)
   });
   
-  const {
-    control,
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm({ resolver: yupResolver(validSchema) });
-  /*const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [pseudo, setPseudo] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [grade, setGrade] = useState("");*/
 
-  const onSubmit = async () => {
-    const data = {
-      email: email,
-      password: password,
-      pseudo: pseudo,
-      lastName: lastName,
-      firstName: firstName,
-      grade: grade,
-    };
+  const onSubmitForm = async (data) => {
     try {
       await axios
         .post(`${import.meta.env.VITE_URL_BACK}/auth/signup`, data)
@@ -80,15 +58,13 @@ const Signup = () => {
             localStorage.setItem("token", res.data.token);
           }
           return res;
-          console.log(res);
         })
         .catch(function (error) {
           console.log(error);
         });
     } catch (error) {
       setError(
-        "submit",
-        "submitError",
+        
         `Oops! ${error.message}`
       );
     }
@@ -105,166 +81,84 @@ const Signup = () => {
         <Logo className={css.logo} />
         <h1>Création de Compte</h1>
         <p>Attention un seul compte par adresse email !!!</p>
-        <form>
-          <Controller
-            control={control}
-            name="email"
-            render={({
-            field: { onChange, value, onBlur },
-            fieldState: { error },
-          }) => (
-              <div className={css.formGroup}>
-                <label htmlFor="email">
-                  Adresse email * (doit comporter @ et .(. com, .fr ...))
-                </label>
-                <input
-                  value={value}
-                  className={css.email}
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="exemple: dupont@gmail.com"
-                  autoFocus
-                  //onChange={(e) => setEmail(e.target.value)}
-                  onChange={onChange}
-              onBlur={onBlur}
-              error={!!error}
-              errorDetails={error?.message}
-              
-                  //value={email}
-                  
-                />
-                
-              </div>
-            )}
-          />
+        <form onSubmit={handleSubmit(onSubmitForm)}>
+          <div className={css.formGroup}>
+            <label htmlFor="email">
+              Adresse email *
+              <input
+              autoFocus
+                id="email"
+                placeholder="exemple test@gmail.com"
+                type="text"
+                {...register("email")}
+                //value={email}
+              />
+            </label>
+            <p>{errors.email?.message}</p>
+          </div>
 
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, value } }) => (
-              <div className={css.formGroup}>
-                <label htmlFor="password">Mot de passe *</label>
-                <input
-                  className={css.password}
-                  type="text"
-                  name="password"
-                  id="password"
-                  placeholder="exemple: Motdepasse01"
-                  //onChange={(e) => setPassword(e.target.value)}
-                  {...register("password", {
-                    required: true,
-                    pattern: regexPassword,
-                  })}
-                  disabled={isSubmitting}
-                />
-                {errors.password && (
-                  <p className={css.infos}>entrée fausse</p>
-                )}
-              </div>
-            )}
-          />
+          <div className={css.formGroup}>
+            <label htmlFor="password">
+              Mot de passe *
+              <input
+                id="password"
+                placeholder="exemple Motdepasse03"
+                type="password"
+                {...register("password")}
+              />
+            </label>
+            <p>{errors.password?.message}</p>
+          </div>
 
-          <Controller
-            control={control}
-            name="pseudo"
-            render={({ field: { onChange, value } }) => (
+          
               <div className={css.formGroup}>
-                <label htmlFor="pseudo">Pseudo</label>
+                <label htmlFor="pseudo">Pseudo
                 <input
-                  className={css.pseudo}
-                  type="text"
-                  name="pseudo"
                   id="pseudo"
                   placeholder="exemple: Pierrot34"
-                  //onChange={(e) => setPseudo(e.target.value)}
-                  {...register("pseudo", { pattern: regexText })}
-                  disabled={isSubmitting}
+                  {...register("pseudo")}
                 />
-                {errors.pseudo && (
-                  <p className={css.infos}>{errors.pseudo.message}</p>
-                )}
+                </label>
+                  <p>{errors.pseudo?.message}</p>
               </div>
-            )}
-          />
 
-          <Controller
-            control={control}
-            name="lastName"
-            render={({ field: { onChange, value } }) => (
               <div className={css.formGroup}>
-                <label htmlFor="lastName">Prénom</label>
+                <label htmlFor="lastName">Prénom
                 <input
-                  className={css.lastName}
-                  type="text"
-                  name="lastName"
                   id="lastName"
                   placeholder="exemple: Pierre"
-                  //onChange={(e) => setLastName(e.target.value)}
-                  {...register("lastName", { pattern: regexText })}
-                  disabled={isSubmitting}
+                  {...register("lastName")}
                 />
-                {errors.lastName && (
-                  <p className={css.infos}>entrée fausse</p>
-                )}
+                </label>
+                  <p>{errors.lastName?.message}</p>
               </div>
-            )}
-          />
-
-          <Controller
-            control={control}
-            name="firstName"
-            render={({ field: { onChange, value } }) => (
+          
               <div className={css.formGroup}>
-                <label htmlFor="firstName">Nom</label>
+                <label htmlFor="firstName">Nom
                 <input
-                  className={css.firstName}
-                  type="text"
-                  name="firstName"
                   id="firstName"
                   placeholder="exemple: Dupont"
-                  //onChange={(e) => setFirstName(e.target.value)}
-                  {...register("fistName", { pattern: regexText })}
-                  disabled={isSubmitting}
+                  {...register("fistName")}
                 />
-                {errors.firstName && (
-                  <p className={css.infos}>entrée fausse</p>
-                )}
+                </label>
+                <p>{errors.fistName?.message}</p>
               </div>
-            )}
-          />
 
-          <Controller
-            control={control}
-            name="grade"
-            render={({ field: { onChange, value } }) => (
               <div className={css.formGroup}>
-                <label htmlFor="grade">Poste dans l'entreprise</label>
+                <label htmlFor="grade">Poste dans l'entreprise
                 <input
-                  className={css.grade}
-                  type="text"
-                  name="grade"
                   id="grade"
                   placeholder="exemple: Secrétaire"
-                  //onChange={(e) => setGrade(e.target.value)}
-                  {...register("grade", { pattern: regexText })}
-                  disabled={isSubmitting}
+                  {...register("grade")}
                 />
-                {errors.grade && (
-                  <p className={css.infos}>entrée fausse</p>
-                )}
+                </label>
+                <p>{errors.grade?.message}</p>
               </div>
-            )}
-          />
 
           <p>* Champs obligatoires</p>
-          {
-            errors && (<p>Merci de remplir correctement tous les champs</p>)
-          }
-          <button className={css.btn} type="button" onClick={handleSubmit(onSubmit)} disabled={isSubmitting}>
-            
-              s'incrire
-            
+
+          <button className={css.btn} type="submit">
+            s'incrire
           </button>
         </form>
       </section>

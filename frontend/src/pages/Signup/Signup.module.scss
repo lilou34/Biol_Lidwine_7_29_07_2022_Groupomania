@@ -27,7 +27,10 @@
     }
   }
   .boxSignup {
-    object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    /* align-content: space-between; */
+    align-items: center;
     background-color: var.$tertiairy;
     width: 98%;
     margin: auto;
@@ -59,6 +62,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
       gap: 1vh;
       @include var.tab {
         gap: 2vh;
@@ -67,7 +71,7 @@
         font-size: large;
       }
       .formGroup {
-        display: flex;
+        margin-top: 10px;
         flex-direction: column;
         align-items: flex-start;
         width: 90%;
@@ -97,7 +101,9 @@
       }
       p{
         color: red;
+        padding: 10px;
       }
+      
       .btn{
         background-color: red;
         #isSubmitting{
