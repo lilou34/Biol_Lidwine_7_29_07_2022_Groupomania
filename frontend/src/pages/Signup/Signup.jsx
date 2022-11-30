@@ -10,12 +10,12 @@ import Logo from "../../components/Logo/Logo";
 import css from "./Signup.module.scss";
 
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const regexPassword = /^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$/;
+const regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\w\d\s:])([^\s]){8,50}$/gm;
 const regexText = /^[a-zÀ-ÖØ-öø-ÿ -]+$/i;
 const validSchema = Yup.object({
   email: Yup.string()
-  .email()
-    .required("tu as tout faux")
+  .email("doit comporter @ et .(. com, .fr ...)")
+    .required("adresse email obligatoire")
     .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
     .min (5, "email trop petit!")
     .max(50, "email trop long!"),
@@ -23,9 +23,9 @@ const validSchema = Yup.object({
   password: Yup.string()
     .required("tu as tout nul")
     .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
-    .min (7, "password trop petit!")
+    .min (8, "password trop petit!")
     .max(50, "password trop long!"),
-
+    
     firstname: Yup.string()
     .matches(regexText, "les chiffres et caractères spéciaux sont interdits")
     .min (2, "Nom trop petit!")
@@ -50,7 +50,9 @@ const Signup = () => {
   
 
   const onSubmitForm = async (data) => {
+    
     try {
+      
       await axios
         .post(`${import.meta.env.VITE_URL_BACK}/auth/signup`, data)
         .then(function (res) {
@@ -59,14 +61,11 @@ const Signup = () => {
           }
           return res;
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch(function (errors) {
+          errors;
         });
     } catch (error) {
-      setError(
-        
-        `Oops! ${error.message}`
-      );
+      console.log(error);
     }
   };
 
@@ -88,6 +87,7 @@ const Signup = () => {
               <input
               autoFocus
                 id="email"
+              
                 placeholder="exemple test@gmail.com"
                 type="text"
                 {...register("email")}
@@ -138,7 +138,7 @@ const Signup = () => {
                 <input
                   id="firstName"
                   placeholder="exemple: Dupont"
-                  {...register("fistName")}
+                  {...register("firstName")}
                 />
                 </label>
                 <p>{errors.fistName?.message}</p>

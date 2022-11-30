@@ -75,49 +75,56 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        width: 85%;
-        position: relative;
+        width: 90%;
         margin-bottom: 7px;
+        margin-top: 10px;
         @include var.desk {
           width: 90%;
         }
         label {
           text-align: left;
           padding-top: 10px;
-          color: var.$secondary;
+          color: #ffd7d7;
           font-size: small;
-        }
-
-        #btnEye {
-          position: absolute;
-          right: -18px;
-          top: 31px;
-          border-radius: 10px;
-          border: solid 4px var.$secondary;
-          width: 45px;
-          height: 45px;
-          .eye{
-            color: var.$tertiairy;
-          }
-          &:hover {
-            border-color: var.$primary;
-          }
-        }
-
-        span {
-          margin-top: 5px;
-          font-size: x-small;
-          text-align: start;
-          color: var.$secondary;
-        }
-        .formControl {
+          display: flex;
+          flex-direction: column;
           width: 90%;
-          padding: 10px;
-          //margin-top: 10px;
-          &::placeholder {
-            font-size: small;
-            color: lighten(var.$tertiairy, 40%);
-          }
+        
+          position: relative;
+        input {
+          
+          width: 100%;
+          margin-top: 10px;
+          padding: 10px 0px;
+        }
+        button{
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: 40px;
+          right: 0px;
+          border-radius: 10px;
+          border: solid 4px var.$primary;
+          width: 44px;
+          height: 44px;
+          background-color: transparent;
+        .eyeOpen {
+          color: var.$primary;
+          &:active {
+            opacity: 0;
+        }
+      }
+
+      .eyeClosed {
+        color: var.$secondary;
+        &:active {
+          opacity: 1;
+      }
+    }
+  }    
+}
+        p {
+          margin-top: 10px;
         }
       }
     }

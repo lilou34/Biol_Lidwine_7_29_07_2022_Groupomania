@@ -44,9 +44,8 @@ schemaMDP
             select: {
                 id: true,
                 email: true,
-                firstName: true,
-                lastName: true,
-                grade: true,
+                password: true,
+                
             },
         });
         return res.status(200).json({ users });
@@ -89,11 +88,13 @@ exports.signup = async (req, res, next) => {
         data: {
           email: req.body.email,
           password: hash,
+          pseudo : req.body.pseudo, 
+          lastName : req.body.lastName, 
+          firstName : req.body.firstName, 
+          grade : req.body.grade,
         },
       })
-    
     return next();
-    
   } catch (error) {
     res.status(500).json({ message: "enregistrement echoué" });
   }

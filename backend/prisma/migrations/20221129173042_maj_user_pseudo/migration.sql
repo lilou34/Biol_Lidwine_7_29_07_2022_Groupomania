@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `user` ADD COLUMN `pseudo` VARCHAR(100) NOT NULL DEFAULT '';

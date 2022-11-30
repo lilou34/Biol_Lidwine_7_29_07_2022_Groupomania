@@ -1,5 +1,5 @@
 import React from "react";
-//import { useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
@@ -7,25 +7,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
 import image from "./homme_tour_controle.jpg";
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { faEye } from '@fortawesome/free-solid-svg-icons'
+import eye from '../../assets/img/eye.svg'
+import eyeSlash from '../../assets/img/eyeSlash.svg'
 import css from "./Login.module.scss";
 
-const Login = () => {
 
+
+const Login = () => {
+const [passwordVisible, setPasswordVisible] = useState(false);
   const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
   const validSchema = Yup.object({
     email: Yup.string()
     .email()
       .required("tu as tout faux")
-      //.matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
+      .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
       .min (5, "email trop petit!")
       .max(50, "email trop long!"),
   
     password: Yup.string()
       .required("tu as tout nul")
-      //.matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
+      .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
       .min (8, "password trop petit!")
       .max(50, "password trop long!"),
     });
@@ -76,6 +78,7 @@ const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
               <input
               autoFocus
                 id="email"
+                value="email"
                 placeholder="exemple test@gmail.com"
                 type="text"
                 {...register("email")}
@@ -86,17 +89,24 @@ const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
           </div>
 
             <div className={css.formGroup}>
-            <label htmlFor="password">
+            <label htmlFor="password" className="label">
               Mot de passe *
+              
               <input
-                id="password"
+              id="password"
+                value="password"
                 placeholder="exemple Motdepasse03"
-                type="password"
+                type={passwordVisible ? 'text' : 'password'}
                 {...register("password")}
+                
               />
+              <button onClick={() => setPasswordVisible(!passwordVisible)}>
+                <img src={passwordVisible ? eyeSlash : eye} alt='oeil ouvert ou fermé selon la visibilité du mot de passe'/>
+              </button>
             </label>
             <p>{errors.password?.message}</p>
           </div>
+          
 
             <button className={css.btn} type="submit">
               Connexion
