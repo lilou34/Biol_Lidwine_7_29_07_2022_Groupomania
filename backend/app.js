@@ -12,7 +12,7 @@ const dotenv = require("dotenv").config();
 //const helmet = require("helmet"); // helmet sécurise les headers
 app.use(cors());
 app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "same-site");
+  res.setHeader("Cross-Origin-Resource-Policy", "*");
   next();
 });
 app.use(helmet());

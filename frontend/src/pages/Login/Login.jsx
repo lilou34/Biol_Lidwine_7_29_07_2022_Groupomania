@@ -15,12 +15,12 @@ import css from "./Login.module.scss";
 
 const Login = () => {
 const [passwordVisible, setPasswordVisible] = useState(false);
-  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
+const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\w\d\s:])([^\s]){8,50}$/gm;
   const validSchema = Yup.object({
     email: Yup.string()
-    .email()
-      .required("tu as tout faux")
+    .email("doit comporter @ et .(. com, .fr ...)")
+      .required("adresse email obligatoire")
       .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
       .min (5, "email trop petit!")
       .max(50, "email trop long!"),
@@ -43,6 +43,7 @@ const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
           .then(function (res) {
             if (res.status === 200 || res.status === 201) {
               localStorage.setItem("token", res.data.token);
+              
             }
             console.log(res.data);
             return res;
@@ -78,7 +79,7 @@ const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
               <input
               autoFocus
                 id="email"
-                value="email"
+                
                 placeholder="exemple test@gmail.com"
                 type="text"
                 {...register("email")}
@@ -94,7 +95,7 @@ const regexPassword = /(?=.*[A-Z])(?=.*[a-z])([0-9])/;
               
               <input
               id="password"
-                value="password"
+                
                 placeholder="exemple Motdepasse03"
                 type={passwordVisible ? 'text' : 'password'}
                 {...register("password")}

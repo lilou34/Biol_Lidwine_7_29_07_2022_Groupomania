@@ -44,7 +44,7 @@ schemaMDP
             select: {
                 id: true,
                 email: true,
-                password: true,
+                password: true
                 
             },
         });

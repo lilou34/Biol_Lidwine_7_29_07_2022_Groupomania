@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/header";
+import Header from "../../components/Header/Header";
 import css from "./Newsfeed.module.scss";
 
 const Newsfeed = () => {
