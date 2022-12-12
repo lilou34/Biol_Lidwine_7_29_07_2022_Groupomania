@@ -10,54 +10,52 @@ import image from "./homme_tour_controle.jpg";
 import eye from '../../assets/img/eye.svg'
 import eyeSlash from '../../assets/img/eyeSlash.svg'
 import css from "./Login.module.scss";
-
-
-
-const Login = () => {
-const [passwordVisible, setPasswordVisible] = useState(false);
+import { loginUser } from "../../store/UserAction";
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\w\d\s:])([^\s]){8,50}$/gm;
-  const validSchema = Yup.object({
-    email: Yup.string()
-    .email("doit comporter @ et .(. com, .fr ...)")
-      .required("adresse email obligatoire")
-      .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
-      .min (5, "email trop petit!")
-      .max(50, "email trop long!"),
-  
-    password: Yup.string()
-      .required("tu as tout nul")
-      .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
-      .min (8, "password trop petit!")
-      .max(50, "password trop long!"),
-    });
+const validSchema = Yup.object({
+  email: Yup.string()
+  .email("doit comporter @ et .(. com, .fr ...)")
+    .required("adresse email obligatoire")
+    .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
+    .min (5, "email trop petit!")
+    .max(50, "email trop long!"),
+
+  password: Yup.string()
+    .required("tu as tout nul")
+    .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
+    .min (8, "password trop petit!")
+    .max(50, "password trop long!"),
+  });
+const Login = () => {
+const [passwordVisible, setPasswordVisible] = useState(false);
+
+ 
     const { register, handleSubmit, formState:{ errors } } = useForm({
       resolver: yupResolver(validSchema)
     });
     
   
-    const onLoginForm = async (data) => {
-      try {
-        await axios
-          .post(`${import.meta.env.VITE_URL_BACK}/auth/login`, data)
-          .then(function (res) {
-            if (res.status === 200 || res.status === 201) {
-              localStorage.setItem("token", res.data.token);
-              
-            }
-            console.log(res.data);
-            return res;
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      } catch (error) {
-        setError(
-          
-          `Oops! ${error.message}`
-        );
+    
+      const { loading, userInfo, error } = useSelector((state) => state.user)
+      const dispatch = useDispatch()
+    
+      
+    
+      const navigate = useNavigate()
+    
+      // redirect authenticated user to profile screen
+      useEffect(() => {
+        if (userInfo) {
+          navigate('/Home')
+        }
+      }, [navigate, userInfo])
+      const onLoginForm = async (data) => {
+        dispatch(loginUser(data))
       }
-    };
   return (
     <main className={css.containerLogin}>
       <section className={css.imageLogin}>

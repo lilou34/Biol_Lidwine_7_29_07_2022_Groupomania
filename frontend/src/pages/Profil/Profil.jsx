@@ -1,12 +1,17 @@
-import React from "react";
-import Header from "../../components/Header/Header";
+import { useSelector } from "react-redux";
 import css from "./Profil.module.scss";
 
 const Profil = () => {
+  const { userInfo } = useSelector((state) => state.user);
+
   return (
-    <main className={css.mainProfil}>
-      <Header />
-    </main>
+    <div>
+      <figure className="figure">{userInfo?.firstName.charAt(0).toUpperCase()}</figure>
+      <span>
+        Welcome <strong>{userInfo?.firstName}!</strong> You can view this page
+        because you're logged in
+      </span>
+    </div>
   );
 };
 

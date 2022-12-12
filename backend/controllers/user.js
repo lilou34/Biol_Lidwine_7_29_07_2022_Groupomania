@@ -122,7 +122,7 @@ exports.login = async (req, res, next) => {
         //fonction sign de jsonwebtoken pour chiffrer un nouveau token
         { userId: user.id },
         process.env.TOKEN_SECRET, // chiffrage secret
-        { expiresIn: "24h" } //durée de validité du token à 24 heures
+        { expiresIn: "5h" } //durée de validité du token à 5 heures
       ),
     });
   } catch (error) {

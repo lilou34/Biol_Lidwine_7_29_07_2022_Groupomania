@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getUserDetails } from "../../store/UserAction";
 import { logout } from "../../store/UserSlice";
-import Logo from "../Logo/Logo";
-import css from "./Header.module.scss";
+import css from "./Home.module.scss";
 
 const Header = () => {
   const { userInfo, userToken } = useSelector((state) => state.user);
@@ -18,9 +17,7 @@ const Header = () => {
   }, [userToken, dispatch]);
 
   return (
-    
-    <header>
-    <Logo/>
+    <header className="headerHome">
       <div className="header-status">
         <span>
           {userInfo ? `Logged in as ${userInfo.email}` : "You're not logged in"}
@@ -38,11 +35,10 @@ const Header = () => {
         </div>
       </div>
       <nav className="container navigation">
-        <NavLink to="/">Accueil</NavLink>
-        <NavLink to="/login">Connexion</NavLink>
-        <NavLink to="/register">Enregistrement</NavLink>
-        <NavLink to="/profil">Mon Profil</NavLink>
-        <NavLink to="/users">Utilisateurs</NavLink>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/register">Register</NavLink>
+        <NavLink to="/user-profile">Profile</NavLink>
       </nav>
     </header>
   );
@@ -50,17 +46,15 @@ const Header = () => {
 
 export default Header;
 // import React from "react";
-// import Navigation from "../Navigation/Navigation";
-// import Logo from "../Logo/Logo";
-// import css from "./Header.module.scss";
-// const Header = () => {
+// import Header from "../../components/Header/Header";
+// import css from "./Home.module.scss";
+
+// const Home = () => {
 //   return (
-//     <header className={css.header}>
-//       <Logo />
-//       <Navigation />
-//       <h1>TESTTEST</h1>
-//     </header>
+//     <main className={css.mainHome}>
+//       <Header />
+//     </main>
 //   );
 // };
 
-// export default Header;
+// export default Home;
