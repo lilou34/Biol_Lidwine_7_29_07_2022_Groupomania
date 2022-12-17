@@ -64,9 +64,8 @@ const Signup = () => {
   const navigate = useNavigate();
   const [customError, setCustomError] = useState(null);
   useEffect(() => {
-    if (userInfo) navigate("/user-profile");
-    // redirect user to login page if registration was successful
-    if (success) navigate("/login");
+    
+    if (success) navigate("/Home");
     //if (success) navigate("/Home");
   }, [navigate, userInfo, success]);
 

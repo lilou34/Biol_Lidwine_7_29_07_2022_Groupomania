@@ -74,7 +74,7 @@ export const registerUser = createAsyncThunk(
           },
         }
   
-        const { data } = await axios.get(`${backendURL}/api/user/profile`, config)
+        const { data } = await axios.get(`${import.meta.env.VITE_URL_BACK}/api/user/profile`, config)
         return data
       } catch (error) {
         if (error.response && error.response.data.message) {
