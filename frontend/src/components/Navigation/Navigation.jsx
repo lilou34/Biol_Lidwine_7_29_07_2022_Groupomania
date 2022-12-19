@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserDetails } from "../../store/UserAction";
+import { getUser } from "../../store/UserAction";
 import { logout } from "../../store/UserSlice";
 import css from "./Navigation.module.scss";
 
@@ -12,7 +12,7 @@ const Navigation = () => {
   // automatically authenticate user if token is found
   useEffect(() => {
     if (userToken) {
-      dispatch(getUserDetails());
+      dispatch(getUser());
     }
   }, [userToken, dispatch]);
 

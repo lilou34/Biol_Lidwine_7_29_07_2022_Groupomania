@@ -4,7 +4,7 @@ import ErrorPage from "../pages/Error/Error";
 const ProtectedRoute = () => {
   const { userInfo } = useSelector((state) => state.user);
 
-  // show unauthorized screen if no user is found in redux store
+  // afficher page d'erreur si aucun utilisateur n’est trouvé dans redux store, sinon renvoi la page home et les routes protégées//
   if (!userInfo) {
     return (
       <ErrorPage/>

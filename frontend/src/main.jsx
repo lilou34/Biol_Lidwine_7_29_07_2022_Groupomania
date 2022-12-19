@@ -5,6 +5,7 @@ import App from "./App";
 import css from "./main.scss";
 import { Provider } from "react-redux";
 import store from "./Store";
+////création de mon app et application du fournisseur de store///////
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <App />

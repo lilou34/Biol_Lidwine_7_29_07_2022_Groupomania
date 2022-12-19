@@ -10,7 +10,7 @@ import image from "./perif_paris.jpg";
 import Logo from "../../components/Logo/Logo";
 import css from "./Signup.module.scss";
 import { registerUser } from "../../store/UserAction";
-
+//////////////validation des input selon shema yup avec regex///////////
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const regexPassword =
   /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\w\d\s:])([^\s]){8,50}$/gm;
@@ -47,7 +47,7 @@ const validSchema = Yup.object({
     .min(2, "grade trop petit!")
     .max(50, "grade trop long!"),
 });
-
+/////////////////////////formulaire d'enregistrement user validation avec rect hook formet logique d'envoi au back/////////////
 const Signup = () => {
   const { loading, userInfo, error, success } = useSelector(
     (state) => state.user

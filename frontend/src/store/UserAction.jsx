@@ -4,28 +4,24 @@ import { appendErrors } from 'react-hook-form';
 
 export const loginUser = createAsyncThunk(
     `${import.meta.env.VITE_URL_BACK}/auth/login`,
-
     async ({ email, password }, { rejectWithValue }) => {
         try {
-          // configure header's Content-Type as JSON
+          ///configurer le type de contenu de l’en-tête comme JSON///
           const config = {
             headers: {
               'Content-Type': 'application/json',
             },
           }
-    
           const { data } = await axios.post(
             `${import.meta.env.VITE_URL_BACK}/auth/login`,
             { email, password },
             config
           )
-    
-          // store user's token in local storage
+          /// stocker le jeton de l’utilisateur dans le stockage local///
           localStorage.setItem('token', data.token)
-    
           return data
         } catch (errors) {
-          // return custom error message from API if any
+          /// retourner un message d’erreur personnalisé de l’API, le cas échéant///
           if (errors.response && errors.response.data.message) {
             return rejectWithValue(errors.response.data.message)
           } else {
@@ -34,6 +30,7 @@ export const loginUser = createAsyncThunk(
         }
       }
 );
+
 export const registerUser = createAsyncThunk(
     `${import.meta.env.VITE_URL_BACK}/auth/signup`,
     async ({email, password, pseudo, lastName, firstName, grade }, { rejectWithValue }) => {
@@ -43,14 +40,15 @@ export const registerUser = createAsyncThunk(
             'Content-Type': 'application/json',
           },
         }
-  
         await axios.post(
             `${import.meta.env.VITE_URL_BACK}/auth/signup`,
           { email, password, pseudo, lastName, firstName, grade },
           config
         )
+        localStorage.setItem('token', data.token)
+          
     } catch (errors) {
-        // return custom error message from API if any
+        
         if (errors.response && errors.response.data.message) {
           return rejectWithValue(errors.response.data.message)
         } else {
@@ -60,21 +58,20 @@ export const registerUser = createAsyncThunk(
     }
 );
   
-  export const getUserDetails = createAsyncThunk(
-    `${import.meta.env.VITE_URL_BACK}/auth/login`,
+  export const getUser = createAsyncThunk(
+    `${import.meta.env.VITE_URL_BACK}/auth/user`,
     async (arg, { getState, rejectWithValue }) => {
       try {
         // get user data from store
         const { user } = getState()
-  
         // configure authorization header with user's token
         const config = {
           headers: {
-            Authorization: `Bearer ${user.userToken}`,
+            Authorization: `Bearer ${user.token}`,
           },
         }
-  
-        const { data } = await axios.get(`${import.meta.env.VITE_URL_BACK}/api/user/profile`, config)
+        const { data } = await axios.get(`${import.meta.env.VITE_URL_BACK}/api/user`, config)
+        console.log(data);
         return data
       } catch (error) {
         if (error.response && error.response.data.message) {
@@ -84,4 +81,29 @@ export const registerUser = createAsyncThunk(
         }
       }
     }
-  )
+  );
+
+  export const getUsers = createAsyncThunk(
+    `${import.meta.env.VITE_URL_BACK}/auth/users`,
+    async (arg, { getState, rejectWithValue }) => {
+      try {
+        // get user data from store
+        const { users } = getState()
+        // configure authorization header with user's token
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+        const { data } = await axios.get(`${import.meta.env.VITE_URL_BACK}/api/users`, config)
+        console.log(data);
+        return data
+      } catch (error) {
+        if (error.response && error.response.data.message) {
+          return rejectWithValue(error.response.data.message)
+        } else {
+          return rejectWithValue(error.message)
+        }
+      }
+    }
+  );

@@ -8,7 +8,7 @@ import Profil from "./pages/Profil/Profil";
 import Users from "./pages/Users/Users";
 import Home from "./pages/Home/Home";
 import ProtectedRoute from "./routing/ProtectedRoute";
-
+/// App avec mise en place de route protégées qui seront accessible qu'aux users connectés///
 const App = () => {
   return (
     <BrowserRouter>
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Profil" element={<Profil />} />
           <Route path="/Utilisateurs" element={<Users />} />
         </Route>
