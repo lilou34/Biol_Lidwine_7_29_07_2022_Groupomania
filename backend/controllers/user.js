@@ -38,24 +38,7 @@ schemaMDP
     "Azerty2",
   ]); // entrées interdites
 
-  exports.users = async (req, res) => {
-    try {
-        const users = await prisma.user.findMany({
-            select: {
-                id: true,
-                email: true,
-                password: true
-                
-            },
-        });
-        return res.status(200).json({ users });
-        
-        
-    } catch (error) {
-        return res.status(404).json({ error });
-    }
-    
-};
+
 /////////////////////////enregistrement nouvel user/////////////////////
 exports.signup = async (req, res, next) => {
   /*const emailCrypt = cryptoJs
@@ -116,16 +99,125 @@ exports.login = async (req, res, next) => {
     if (!valid) {
       res.status(402).json({ message: "Paire login/mot de passe incorrecte" });
     }
+   
     //Nous renvoyons le token au front-end avec notre réponse.
     return res.status(200).json({
       token: jwt.sign(
         //fonction sign de jsonwebtoken pour chiffrer un nouveau token
         { userId: user.id },
+        
         process.env.TOKEN_SECRET, // chiffrage secret
-        { expiresIn: "24h" } //durée de validité du token à 24 heures
+        { expiresIn: "5h" } //durée de validité du token à 5 heures
       ),
     });
   } catch (error) {
     return res.status(500).json({ error });
   }
+  
 };
+
+///////////////////////////tous les utilisateurs//////////////////////////
+exports.users = async (
+  req, res, next
+) => {
+  try {
+      const users = await prisma.user.findMany({
+          select: {
+              id: true,
+              email: true,
+              password: true,
+              pseudo: true,
+              lastName: true,
+              firstName: true,
+              grade: true,
+              imageProfile: true,
+              role: true,
+
+          },
+      });
+      return res.status(200).json({ users });
+  } catch (error) {
+      return res.status(404).json({ error });
+  }
+};
+
+///////////////////////////user spécififique//////////////////////////
+exports.user = async (
+  req, res, next
+) => {
+  try {
+      const user = await prisma.user.findById({
+          where: {
+              id: req.auth.user.id,
+          },
+          select: {
+              id: true,
+              email: true,
+              password: true,
+              pseudo: true,
+              lastName: true,
+              firstName: true,
+              grade: true,
+              imageProfile: true,
+              role: true,
+              
+          },
+      });
+      if (!user) {
+          throw "Utilisateur introuvable";
+      }
+      return res.status(200).json({
+          token: jwt.sign(
+              {
+                  userId: user.id,
+                  
+              },
+              process.env.TOKEN_SECRET,
+              { expiresIn: "5h" }
+          ),
+          user: user
+      });
+  } catch (error) {
+      return res.status(404).json({ error });
+  }
+};
+
+///////////////////////////update user//////////////////////////
+
+
+///////////////////////////delete user//////////////////////////
+
+// //DELETE account pour supprimer le compte utilisateur
+// //je récupére l'id de l'utilisateur à supprimer
+// exports.deleteAccount = async (req, res) => {
+//   try {
+//     //Aller chercher l'id de l'utilisateur à supprimer
+//     const id = userIdParamsUrl;
+
+//     //La requête SQL pour la suppresion du compte
+//     //DELETE FROM `user` WHERE `id`=25
+//     const querySql = `
+//   DELETE FROM user
+//   WHERE id = ?
+//   `;
+
+//     const values = [id];
+
+//     //La connexion à la base de donnée mySQL
+//     await mysqlconnection.query(querySql, values, (error, results) => {
+//       if (error) {
+//         res.status(500).json({ error });
+//       } else {
+//         res.status(201).json({
+//           message: "Compte utilisateur effacé de la base de donnée",
+//           results,
+//         });
+//       }
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       error,
+//       message: "il y a un problème avec la suppression du compte utilisateur",
+//     });
+//   }
+// };

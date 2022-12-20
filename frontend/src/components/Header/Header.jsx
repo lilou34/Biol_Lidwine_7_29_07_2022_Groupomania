@@ -1,15 +1,17 @@
+
 import React from "react";
-import Navigation from "../Navigation/Navigation";
 import Logo from "../Logo/Logo";
+import Navigation from "../Navigation/Navigation";
 import css from "./Header.module.scss";
+
 const Header = () => {
-  return (
+
+  return ( 
     <header className={css.header}>
-      <Logo />
-      <Navigation />
-      <h1>TESTTEST</h1>
+    <Logo/>
+      <Navigation/>
     </header>
   );
 };
-
 export default Header;
+

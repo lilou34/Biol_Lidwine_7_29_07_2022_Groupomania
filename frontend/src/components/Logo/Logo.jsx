@@ -6,7 +6,7 @@ import css from "./Logo.module.scss";
 const Logo = () => {
   return (
     <div>
-      <NavLink to='/Newsfeed'>
+      <NavLink to="/Home">
         <img src={logo} className={css.logo} />
       </NavLink>
     </div>

@@ -1,30 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signup from "./pages/Signup/Signup";
-import Login from "./pages/Login/Login";
-import ErrorPage from "./pages/Error/Error";
-//import Profil from "./pages/Profil/Profil";
-//import Users from "./pages/Users/Users";
-import Newsfeed from "./pages/Newsfeed/Newsfeed";
-import css from "./main.scss";
-import LoginContext from "./utils/context/AuthContext";
 
+import App from "./App";
+import css from "./main.scss";
+import { Provider } from "react-redux";
+import store from "./Store";
+////création de mon app et application du fournisseur de store///////
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <LoginContext.Provider value={false}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<ErrorPage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Newsfeed />} />
-      </Routes>
-    </BrowserRouter>
-  </LoginContext.Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
-/*<Route path="/login" element={<Login />} />
-        <Route path="/" element={<Newsfeed />} />
+/*<LoginContext.Provider value={false}>
+</LoginContext.Provider>
+<Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profil/:id" element={<Profil />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="*" element={<Newsfeed />} />*/
+        
+        <Route path="*" element={<Home />} />*/
