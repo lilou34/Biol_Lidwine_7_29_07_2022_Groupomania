@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE `user` MODIFY `email` VARCHAR(150) NOT NULL,
-    MODIFY `password` VARCHAR(100) NOT NULL,
-    MODIFY `firstName` VARCHAR(100) NOT NULL DEFAULT '',
-    MODIFY `lastName` VARCHAR(100) NOT NULL DEFAULT '';
