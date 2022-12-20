@@ -1,29 +1,44 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
-//import ErrorPage from "./pages/Error/Error";
+import ErrorPage from "./pages/Error/Error";
 import Profil from "./pages/Profil/Profil";
-import Users from "./pages/Users/Users";
-import Home from "./pages/Home/Home";
-import ProtectedRoute from "./routing/ProtectedRoute";
-/// App avec mise en place de route protégées qui seront accessible qu'aux users connectés///
+//import Users from "./pages/Users/Users";
+import Newsfeed from "./pages/Newsfeed/Newsfeed";
+import Auth from "./utils/context/Auth";
+import { hasAuth } from "./utils/AuthApi";
+import AuthRoute from "./utils/AuthRoute";
+
+//import { ProtectedRoute } from "./utils/ProtectedRoute";
+
 const App = () => {
+  const [isAuth, setIsAuth] = useState(hasAuth());
   return (
-    <BrowserRouter>
+    <Auth.Provider value={{ isAuth }}>
       <Routes>
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/Profil" element={<Profil />} />
-          <Route path="/Utilisateurs" element={<Users />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          path="/"
+          element={
+            <AuthRoute>
+              <Newsfeed />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <AuthRoute>
+              <Profil />
+            </AuthRoute>
+          }
+        />
       </Routes>
-    </BrowserRouter>
+    </Auth.Provider>
   );
 };
+
 export default App;
-//<Route path="*" element={<ErrorPage />} />

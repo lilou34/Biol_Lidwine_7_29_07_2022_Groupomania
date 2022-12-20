@@ -1,21 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getUser } from "../../store/UserAction";
-import { logout } from "../../store/UserSlice";
+import Auth from "../../utils/context/Auth";
 import css from "./Navigation.module.scss";
 
 const Navigation = () => {
-  const { userInfo, userToken } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  // automatically authenticate user if token is found
-  useEffect(() => {
-    if (userToken) {
-      dispatch(getUser());
-    }
-  }, [userToken, dispatch]);
-
+  
+    const {isAuth} = useContext(Auth);
   return (
     <nav className={css.nav_container}>
       <ul className={css.ul}>
@@ -64,8 +54,7 @@ const Navigation = () => {
             Utilisateurs
           </NavLink>
         </li>
-        
-        <li className={css.li}>{userInfo ? (
+        <li className={css.li}>
           <NavLink
             to="/login"
             style={({ isActive }) =>
@@ -75,13 +64,10 @@ const Navigation = () => {
                     background: "#ffd7d7",
                   }
                 : { color: "#ffd7d7", background: "#4e5166" }
-            } onClick={() => dispatch(logout())}>
-          
+            }
+          >
             Déconnexion
-          </NavLink>) : (
-            <NavLink className={css.button} to="/login">
-              Login
-            </NavLink>)}
+          </NavLink>
         </li>
       </ul>
     </nav>

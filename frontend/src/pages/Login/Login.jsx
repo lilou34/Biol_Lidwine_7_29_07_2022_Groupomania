@@ -7,61 +7,57 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
 import image from "./homme_tour_controle.jpg";
-import eye from "../../assets/img/eye.svg";
-import eyeSlash from "../../assets/img/eyeSlash.svg";
+import eye from '../../assets/img/eye.svg'
+import eyeSlash from '../../assets/img/eyeSlash.svg'
 import css from "./Login.module.scss";
-import { loginUser } from "../../store/UserAction";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const regexPassword =
-  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\w\d\s:])([^\s]){8,50}$/gm;
-const validSchema = Yup.object({
-  email: Yup.string()
-    .email("doit comporter @ et .(. com, .fr ...)")
-    .required("adresse email obligatoire")
-    .matches(
-      regexEmail,
-      "Adresse email * (doit comporter @ et .(. com, .fr ...))"
-    )
-    .min(5, "email trop petit!")
-    .max(50, "email trop long!"),
 
-  password: Yup.string()
-    .required("tu as tout nul")
-    .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
-    .min(8, "password trop petit!")
-    .max(50, "password trop long!"),
-});
+
+
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validSchema),
-  });
-
-  const { loading, userInfo, error } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
-  // redirect authenticated user to home
-  useEffect(() => {
-    if (userInfo) {
-      console.log(userInfo);
-      navigate("/Home");
-    }
-  }, [navigate, userInfo]);
-  const onLoginForm = async (data) => {
-    dispatch(loginUser(data));
-    console.log(data);
-  };
+const [passwordVisible, setPasswordVisible] = useState(false);
+const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const regexPassword = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[\w\d\s:])([^\s]){8,50}$/gm;
+  const validSchema = Yup.object({
+    email: Yup.string()
+    .email("doit comporter @ et .(. com, .fr ...)")
+      .required("adresse email obligatoire")
+      .matches(regexEmail, "Adresse email * (doit comporter @ et .(. com, .fr ...))")
+      .min (5, "email trop petit!")
+      .max(50, "email trop long!"),
   
+    password: Yup.string()
+      .required("tu as tout nul")
+      .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
+      .min (8, "password trop petit!")
+      .max(50, "password trop long!"),
+    });
+    const { register, handleSubmit, formState:{ errors } } = useForm({
+      resolver: yupResolver(validSchema)
+    });
+    
   
-  
+    const onLoginForm = async (data) => {
+      try {
+        await axios
+          .post(`${import.meta.env.VITE_URL_BACK}/auth/login`, data)
+          .then(function (res) {
+            if (res.status === 200 || res.status === 201) {
+              localStorage.setItem("token", res.data.token);
+              
+            }
+            console.log(res.data);
+            return res;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } catch (error) {
+        setError(
+          
+          `Oops! ${error.message}`
+        );
+      }
+    };
   return (
     <main className={css.containerLogin}>
       <section className={css.imageLogin}>
@@ -78,32 +74,40 @@ const Login = () => {
             <h1>Bienvenue sur votre réseau social d'entreprise</h1>
             <p>Connectez-vous</p>
             <div className={css.formGroup}>
-              <label htmlFor="email">
-                Adresse email *
-                <input
-                  autoFocus
-                  id="email"
-                  placeholder="exemple test@gmail.com"
-                  type="text"
-                  {...register("email")}
-                  //value={email}
-                />
-              </label>
-              <p>{errors.email?.message}</p>
-            </div>
+            <label htmlFor="email">
+              Adresse email *
+              <input
+              autoFocus
+                id="email"
+                
+                placeholder="exemple test@gmail.com"
+                type="text"
+                {...register("email")}
+                //value={email}
+              />
+            </label>
+            <p>{errors.email?.message}</p>
+          </div>
 
             <div className={css.formGroup}>
-              <label htmlFor="password" className="label">
-                Mot de passe *
-                <input
-                  id="password"
-                  placeholder="exemple Motdepasse03"
-                  type="text"
-                  {...register("password")}
-                />
-              </label>
-              <p>{errors.password?.message}</p>
-            </div>
+            <label htmlFor="password" className="label">
+              Mot de passe *
+              
+              <input
+              id="password"
+                
+                placeholder="exemple Motdepasse03"
+                type={passwordVisible ? 'text' : 'password'}
+                {...register("password")}
+                
+              />
+              <button onClick={() => setPasswordVisible(!passwordVisible)}>
+                <img src={passwordVisible ? eyeSlash : eye} alt='oeil ouvert ou fermé selon la visibilité du mot de passe'/>
+              </button>
+            </label>
+            <p>{errors.password?.message}</p>
+          </div>
+          
 
             <button className={css.btn} type="submit">
               Connexion

@@ -97,7 +97,32 @@
           margin-top: 10px;
           padding: 10px 0px;
         }
+        button{
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: 40px;
+          right: 0px;
+          border-radius: 10px;
+          border: solid 4px var.$primary;
+          width: 44px;
+          height: 44px;
+          background-color: transparent;
+        .eyeOpen {
+          color: var.$primary;
+          &:active {
+            opacity: 0;
+        }
       }
+
+      .eyeClosed {
+        color: var.$secondary;
+        &:active {
+          opacity: 1;
+      }
+    }
+  }    
+}
         p {
           margin-top: 10px;
         }

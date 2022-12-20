@@ -1,10 +1,9 @@
 @use "../../sass/var";
-@use "../../sass/Button";
 
-
-header {
+.header {
   background-color: var.$tertiairy;
   display: flex;
   flex-direction: column;
   gap: 30px;
+
 }
