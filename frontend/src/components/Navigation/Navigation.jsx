@@ -3,9 +3,7 @@ import { NavLink } from "react-router-dom";
 import Auth from "../../utils/context/Auth";
 import css from "./Navigation.module.scss";
 
-const Navigation = () => {
-  
-    const {isAuth} = useContext(Auth);
+function Navigation(){
   return (
     <nav className={css.nav_container}>
       <ul className={css.ul}>

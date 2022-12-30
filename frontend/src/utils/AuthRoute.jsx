@@ -1,19 +1,19 @@
-import React from 'react';
-import { useContext } from 'react';
-import { Navigate, Route } from "react-router-dom";
-import Auth from "./context/Auth";
+// import React from 'react';
+// import { useContext } from 'react';
+// import { Navigate, Route } from "react-router-dom";
+// import AuthContext from "./context/Auth";
 
 
-const AuthRoute = ({path, component}) => {
-const {isAuth} = useContext(Auth);
+// const AuthRoute = ({path, component}) => {
+// const {isAuth} = useContext(AuthContext);
 
-return isAuth ? (
-<Route exact path={path} component={component} />
-) : (
-    <Navigate to="/login" />
-)
-}
-export default AuthRoute;
+// return isAuth ? (
+// <Route exact path={path} component={component} />
+// ) : (
+//     <Navigate to="/login" />
+// )
+// }
+// export default AuthRoute;
 // import { Navigate } from "react-router-dom";
 // import { useAuth } from "./Hook/UseAuth";
 

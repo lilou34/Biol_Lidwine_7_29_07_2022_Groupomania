@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
@@ -6,38 +6,38 @@ import ErrorPage from "./pages/Error/Error";
 import Profil from "./pages/Profil/Profil";
 //import Users from "./pages/Users/Users";
 import Newsfeed from "./pages/Newsfeed/Newsfeed";
-import Auth from "./utils/context/Auth";
-import { hasAuth } from "./utils/AuthApi";
-import AuthRoute from "./utils/AuthRoute";
+import AuthContext from "./utils/context/Auth";
+
 
 //import { ProtectedRoute } from "./utils/ProtectedRoute";
 
-const App = () => {
-  const [isAuth, setIsAuth] = useState(hasAuth());
+function App() {
+
+  const context = useContext(AuthContext);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
-    <Auth.Provider value={{ isAuth }}>
+    <AuthContext.Provider value={context}>
       <Routes>
         <Route path="*" element={<ErrorPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/"
+          path="/Newsfeed"
           element={
-            <AuthRoute>
-              <Newsfeed />
-            </AuthRoute>
+            isLoggedIn?
+              ('Newsfeed /'):('Login /')
+            
           }
         />
         <Route
           path="/user"
           element={
-            <AuthRoute>
-              <Profil />
-            </AuthRoute>
+            isLoggedIn?
+              ('Profil /'):('Login /')
           }
         />
       </Routes>
-    </Auth.Provider>
+    </AuthContext.Provider>
   );
 };
 

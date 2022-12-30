@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../../components/Logo/Logo";
 import css from "./Error.module.scss";
 
-const ErrorPage = () => {
+function ErrorPage(){
   
 
   return (

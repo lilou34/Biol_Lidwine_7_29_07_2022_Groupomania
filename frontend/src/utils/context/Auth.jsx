@@ -1,45 +1,66 @@
-import React from "react";
+import React, {createContext, useState}from "react";
 
-export default React.createContext({
-    isAuth: false,
-    setIsAuth: value => {}
-});
+const defaultValue = {
+    token: "",
+    userId: null,
+    admin: null,
+    isLoggedIn: false,
+    login: () => {},
+    logout: () => {},
+  };
+  const AuthContext = createContext(defaultValue);
+  //Contrôle de la présence du token, de m'userId et de l'admin état dans le local storage
+const tokenLs = localStorage.getItem("token");
+const userIdLs = localStorage.getItem("userId");
+const adminLs = Number(localStorage.getItem("admin"));
+//le context provider pour wrapper app.js
+function AuthContextProvider(props){
+ //stockage du token d'authentification, de l'userId et de l'état admin
+ const [token, setToken] = useState(tokenLs);
+ const [userId, setUserId] = useState(userIdLs);
+ const [admin, setAdmin] = useState(adminLs);
+  //une fonction pour mettre à jour le token, l'userId et admin état dans le state
+  const loginHandler = (token, userId, admin) => {
+    setToken(token);
+    setUserId(userId);
+    setAdmin(admin);
+    //mettre la donnée dans le local storage
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("admin", admin);
+  };
 
-// import { createContext, useContext, useMemo } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useLocalStorage } from "./useLocalStorage";
-// const AuthContext = createContext();
+  //pour se déconnecter (faire passer le token à null)
+  const logoutHandler = () => {
+    setToken(null);
+    setUserId(null);
+    setAdmin(null);
+    //supprimer la donnée dans le local storage
+    localStorage.clear();
+  };
 
-// export const AuthProvider = ({ children }) => {
-//   const [user, setUser] = useLocalStorage("user", null);
-//   const navigate = useNavigate();
+  //s'il y présence du token ça veut dire que je suis loggé
+  //convertir le token en valeur booléenne
+  const userIsLoggedIn = !!token;
 
-//   // call this function when you want to authenticate the user
-//   const login = async (data) => {
-//     setUser(data);
-//     navigate("/profil");
-//   };
+  //le context value
+  const contextValue = {
+    token: token,
+    userId: userId,
+    isLoggedIn: userIsLoggedIn,
+    admin: admin,
+    login: loginHandler,
+    logout: logoutHandler,
+  };
 
-//   // call this function to sign out logged in user
-//   const logout = () => {
-//     setUser(null);
-//     navigate("/", { replace: true });
-//   };
+  return (
+    <AuthContext.Provider value={contextValue}>
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
 
-//   const value = useMemo(
-//     () => ({
-//       user,
-//       login,
-//       logout
-//     }),
-//     [user]
-//   );
-//   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-// };
-
-// export const useAuth = () => {
-//   return useContext(AuthContext);
-// };
+export default AuthContext;
 
 // import React,{ createContext, PropsWithChildren, useEffect, useMemo, useState } from "react";
 

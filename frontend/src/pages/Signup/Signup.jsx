@@ -43,7 +43,7 @@ const validSchema = Yup.object({
 
 });
 
-const Signup = () => {
+function Signup(){
   const { register, handleSubmit, formState:{ errors } } = useForm({
     resolver: yupResolver(validSchema)
   });

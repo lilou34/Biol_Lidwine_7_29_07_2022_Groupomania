@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/Header";
 import css from "./Users.module.scss";
 
-const Users = () => {
+function Users(){
   return (
     <main className={css.mainUsers}>
       <Header />

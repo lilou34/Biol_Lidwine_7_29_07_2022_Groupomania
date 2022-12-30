@@ -1,4 +1,4 @@
-export function hasAuth(){
+// export function hasAuth(){
 
-    return false;
-}
+//     return false;
+// }
