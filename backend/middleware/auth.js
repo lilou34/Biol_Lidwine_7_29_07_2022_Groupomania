@@ -3,15 +3,15 @@ const dotenv = require("dotenv").config();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const header = req.header("Authorization");
     if (header == null) return res.status(403).send({ message: "Invalid" });
     const token = header.split(" ")[1];
+
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    if (err) return res.status(403).send({ message: "Token invalid" + err });
     const userId = decodedToken.userId;
-    const user =  prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: userId,
       },

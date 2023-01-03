@@ -1,35 +1,47 @@
 import axios from "axios";
-import React, {useContext} from "react";
+import React from "react";
+import { useContext, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import css from "./Profil.module.scss";
 import { AuthContext } from "../../utils/context/Auth";
 
-function Profil(){
-const authContext = useContext(AuthContext);
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
-const role = localStorage.getItem("admin");
-console.log(userId, token, role);
-const config = {
-  headers: { Authorization: `Bearer ${token}` }
-};
-async function getUser(data){
-  try{
+async function Profil() {
+  const authContext = useContext(AuthContext);
+  //const isLoggedIn = authContext.isLoggedIn;
+//   useEffect(() => {
+  
+//     authContext.userIsLoggedIn
+//      console.log(authContext.userId);
     
-    const res = await axios.get(`${import.meta.env.VITE_URL_BACK}/auth/${userId}`, config)
-    if (res.status === 200 || res.status === 201) {console.log(data);
+// }, [authContext?.connected]);
+  async function getUser(data) {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL_BACK}/auth/${authContext.userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authContext.token}`
+          }
+        }
+      );
+      if (res.status === 200) {
+        console.log(data);
+        return {
+          data
+        };
+      }
+    } catch {
+      console.log("problème");
     }
-  }catch{
-    console.log("problème");
-    
   }
-}
-getUser();
+  getUser();
   return (
     <main className={css.mainProfil}>
       <Header />
+      <h2>Bonjour</h2>
+      
     </main>
   );
-};
+}
 
 export default Profil;

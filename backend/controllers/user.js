@@ -41,7 +41,7 @@ schemaMDP
     try {
         const user = await prisma.user.findUnique({
           where: {
-            id: req.body.id,
+            id: req.auth.userId,
         },
             select: {
                 id: true,
