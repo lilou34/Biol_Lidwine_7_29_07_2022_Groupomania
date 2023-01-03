@@ -7,7 +7,7 @@ const userCtrl = require('../controllers/user');
 const auth = require('../middleware/auth');
 router.post('/signup',userCtrl.signup, userCtrl.login);// , userCtrl.login permet de se connecter directement sans devoir retaper
 router.post('/login', max.limiter, userCtrl.login);
-router.get('/:id', auth, userCtrl.allUsers);
-router.get('/:id', auth, userCtrl.profil);
+router.get('/users', auth, userCtrl.allUsers);
+router.get('/:id', auth, userCtrl.user);
 
 module.exports = router;

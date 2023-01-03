@@ -75,7 +75,7 @@
         flex-direction: column;
         align-items: flex-start;
         width: 90%;
-        
+
         label {
           text-align: left;
           padding-bottom: 5px;
@@ -86,10 +86,9 @@
           margin-top: 5px;
           font-size: x-small;
           text-align: start;
-          color:  var.$secondary;
-          
+          color: var.$secondary;
         }
-        input  {
+        input {
           width: 100%;
           padding: 5px;
           &::placeholder {
@@ -97,28 +96,27 @@
             color: lighten(var.$tertiairy, 40%);
           }
         }
-
       }
-      p{
+      p {
         color: red;
         padding: 10px;
       }
-      
-      .btn{
+
+      .btn {
         background-color: red;
-        #isSubmitting{
+        #isSubmitting {
           background-color: green;
         }
       }
-    }
-  }
-  .lienSignup {
-    margin: 60px 20px 20px 20px;
-    color: var.$tertiairy;
-    
-    font-style: italic;
-    &:hover {
-      text-decoration: underline;
+      a {
+        margin: 20px;
+        color: var.$secondary;
+        font-style: italic;
+        font-size: small;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

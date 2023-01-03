@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import Auth from "../../utils/context/Auth";
 import css from "./Navigation.module.scss";
-
-function Navigation(){
+import { AuthContext } from "../../utils/context/Auth";
+function Navigation() {
+  const authContext = useContext(AuthContext);
+  const deconnexion = () => {
+    authContext.logoutHandler();
+  };
   return (
     <nav className={css.nav_container}>
       <ul className={css.ul}>
         <li className={css.li}>
           <NavLink
-            to="/"
+            to="/Newsfeed"
             style={({ isActive }) =>
               isActive
                 ? {
@@ -54,7 +57,7 @@ function Navigation(){
         </li>
         <li className={css.li}>
           <NavLink
-            to="/login"
+            to="/"
             style={({ isActive }) =>
               isActive
                 ? {
@@ -63,6 +66,7 @@ function Navigation(){
                   }
                 : { color: "#ffd7d7", background: "#4e5166" }
             }
+            onClick={deconnexion}
           >
             Déconnexion
           </NavLink>
@@ -70,7 +74,7 @@ function Navigation(){
       </ul>
     </nav>
   );
-};
+}
 
 export default Navigation;
 /*

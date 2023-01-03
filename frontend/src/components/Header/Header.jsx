@@ -7,7 +7,7 @@ function Header(){
     <header className={css.header}>
       <Logo />
       <Navigation />
-      <h1>TESTTEST</h1>
+      
     </header>
   );
 };

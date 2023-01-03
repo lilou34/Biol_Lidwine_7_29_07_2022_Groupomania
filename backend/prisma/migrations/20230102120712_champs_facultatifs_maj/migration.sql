@@ -1,0 +1,15 @@
+-- AlterTable
+ALTER TABLE `comment` MODIFY `image` VARCHAR(255) NULL DEFAULT '',
+    MODIFY `altText` VARCHAR(255) NULL DEFAULT '';
+
+-- AlterTable
+ALTER TABLE `post` MODIFY `content` VARCHAR(255) NULL DEFAULT '',
+    MODIFY `image` VARCHAR(255) NULL DEFAULT '',
+    MODIFY `altText` VARCHAR(255) NULL DEFAULT '';
+
+-- AlterTable
+ALTER TABLE `user` MODIFY `firstName` VARCHAR(100) NULL DEFAULT '',
+    MODIFY `lastName` VARCHAR(100) NULL DEFAULT '',
+    MODIFY `grade` VARCHAR(100) NULL DEFAULT '',
+    MODIFY `imageProfile` VARCHAR(255) NULL DEFAULT '',
+    MODIFY `pseudo` VARCHAR(100) NULL DEFAULT '';

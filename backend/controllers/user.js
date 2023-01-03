@@ -37,11 +37,11 @@ schemaMDP
     "Azerty1",
     "Azerty2",
   ]); // entrées interdites
-  exports.profil = async (req, res, next) => {
+  exports.user = async (req, res, next) => {
     try {
         const user = await prisma.user.findUnique({
           where: {
-            id: req.auth.userId,
+            id: req.body.id,
         },
             select: {
                 id: true,
@@ -54,6 +54,7 @@ schemaMDP
                 avatar: true,
             },
         });
+        console.log(user);
         return res.status(200).json({ user });
         
         
@@ -102,7 +103,7 @@ exports.signup = async (req, res, next) => {
 
   if (emailFindUnique) {
     return res
-      .status(402)
+      .status(401)
       .json({
         message:
           "Un compte existe déjà avec cette adresse mail, merci de vous connecter !",
@@ -120,7 +121,7 @@ exports.signup = async (req, res, next) => {
           pseudo : req.body.pseudo, 
           lastName : req.body.lastName, 
           firstName : req.body.firstName, 
-          grade : req.body.grade,
+          grade : req.body.poste,
         },
       })
     return next();
@@ -143,7 +144,7 @@ exports.login = async (req, res, next) => {
     const valid = await bcrypt.compare(req.body.password, user.password); //fonction compare de bcrypt pour comparer le mot de passe entré par l'user avec le hash enregistré dans la base de données
 
     if (!valid) {
-      res.status(402).json({ message: "Paire login/mot de passe incorrecte" });
+      res.status(401).json({ message: "Paire login/mot de passe incorrecte" });
     }
     //Nous renvoyons le token au front-end avec notre réponse.
     return res.status(200).json({
@@ -153,6 +154,8 @@ exports.login = async (req, res, next) => {
         process.env.TOKEN_SECRET, // chiffrage secret
         { expiresIn: "24h" } //durée de validité du token à 24 heures
       ),
+      userId: user.id,
+      admin : user.role
     });
   } catch (error) {
     return res.status(500).json({ error });
