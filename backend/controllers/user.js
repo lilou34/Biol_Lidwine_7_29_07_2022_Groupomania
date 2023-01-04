@@ -51,7 +51,7 @@ schemaMDP
                 lastName: true,
                 grade: true,
                 role: true,
-                avatar: true,
+                imageProfile: true,
             },
         });
         console.log(user);

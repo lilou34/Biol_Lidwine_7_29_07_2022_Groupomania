@@ -27,7 +27,7 @@ module.exports = async (req, res, next) => {
       lastName: user.lastName,
       grade: user.grade,
       role: user.role,
-      avatar: user.avatar,
+      imageProfile: user.imageProfile,
     };
     return next();
   } catch (error) {

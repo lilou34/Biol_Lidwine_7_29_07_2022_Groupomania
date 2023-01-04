@@ -1,47 +1,52 @@
 import axios from "axios";
 import React from "react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import css from "./Profil.module.scss";
 import { AuthContext } from "../../utils/context/Auth";
 
-async function Profil() {
+function Profil() {
   const authContext = useContext(AuthContext);
-  //const isLoggedIn = authContext.isLoggedIn;
-//   useEffect(() => {
-  
-//     authContext.userIsLoggedIn
-//      console.log(authContext.userId);
-    
-// }, [authContext?.connected]);
-  async function getUser(data) {
+  const [isLoading, setIsLoading] = useState(null);
+  const [profil, setProfil] = useState(null);
+  async function getUser() {
+    setIsLoading(true);
     try {
-      const res = await axios.get(
+      const response = await axios.get(
         `${import.meta.env.VITE_URL_BACK}/auth/${authContext.userId}`,
         {
           headers: {
-            Authorization: `Bearer ${authContext.token}`
-          }
+            Authorization: `Bearer ${authContext.token}`,
+          },
         }
       );
-      if (res.status === 200) {
-        console.log(data);
-        return {
-          data
-        };
+      console.log(response);
+      if (response.status === 200) {
+        console.log(response.data.user);
+        setProfil(response.data.user);
       }
     } catch {
       console.log("problème");
     }
+    setIsLoading(false);
   }
-  getUser();
-  return (
-    <main className={css.mainProfil}>
-      <Header />
-      <h2>Bonjour</h2>
-      
-    </main>
-  );
+  useEffect(() => {
+    getUser();
+  }, []);
+  if (isLoading) {
+    return (
+      <main className={css.mainProfil}>
+        <Header />
+        <h2>CHARGEMENT ........</h2>
+      </main>
+    );
+  } else {
+    return (
+      <main className={css.mainProfil}>
+        <Header />
+        <h2>Bonjour{setProfil.pseudo}</h2>
+      </main>
+    );
+  }
 }
-
 export default Profil;
