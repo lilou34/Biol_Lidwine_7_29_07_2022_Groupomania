@@ -1,20 +1,8 @@
 import React, {createContext, useState}from "react";
 import { useEffect, useMemo } from "react";
 
-// const defaultValue = {
-//     token: "",
-//     userId: null,
-//     admin: null,
-//     isLoggedIn: false,
-//     login: () => {},
-//     logout: () => {},
-//   };
   export const AuthContext = createContext();
-  //Contrôle de la présence du token, de m'userId et de l'admin état dans le local storage
-// const tokenLs = localStorage.getItem("token");
-// const userIdLs = localStorage.getItem("userId");
-// const adminLs = Number(localStorage.getItem("admin"));
-//le context provider pour wrapper app.js
+  
 function AuthContextProvider(props){
  //stockage du token d'authentification, de l'userId et de l'état admin
  const [token, setToken] = useState(null);

@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
-import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
@@ -30,6 +29,11 @@ const validSchema = Yup.object({
     .matches(regexPassword, "mini 1 maj 1 min 1 chiffre 8 caractères")
     .min(8, "password trop petit!")
     .max(50, "password trop long!"),
+
+    pseudo: Yup.string()
+    .required("pseudo obligatoire")
+    .min(2, "pseudo trop petit!")
+    .max(50, "pseudo trop long!"),
 
   firstname: Yup.string()
     .matches(regexText, "les chiffres et caractères spéciaux sont interdits")
@@ -119,7 +123,7 @@ function Signup() {
 
           <div className={css.formGroup}>
             <label htmlFor="pseudo">
-              Pseudo
+              Pseudo *
               <input
                 id="pseudo"
                 placeholder="exemple: Pierrot34"
